@@ -1,0 +1,30 @@
+{
+  "name": "webpack01",
+  "version": "1.0.0",
+  "description": "[](./doc/webpack.jpg)\r + webpack是一个现代的JavaScript应用程序打包器，将程序用到的模块打包成一个bundle.js\r + webpack有四个核心的 [概念](https://doc.webpack-china.org/concepts/)：入口（entry）、输出（output）、loader、插件（plugin）一定要理解",
+  "main": "webpack.config.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "webpack": "^4.2.0",
+    "webpack-cli": "^2.0.13",
+    "webpack-dev-server": "^3.1.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.11",
+    "style-loader": "^0.20.3"
+  }
+}
