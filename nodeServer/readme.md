@@ -1,0 +1,14 @@
++---public
+|   +---images
+|   +---javascripts
+|   \---stylesheets
+|           style.css
+|
++---routes
+|       index.js
+|       users.js
+|
+\---views
+        error.jade
+        index.jade
+        layout.jade
