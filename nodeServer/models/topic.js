@@ -1,8 +1,8 @@
 const mongoose=require('mongoose')
 const config=require('../config/config')
-const BaseModel=require('./base')
-const {Schema}=mongoose
-const {ObjetId}=Schema
+const BaseModel=require('./base');
+const {Schema}=mongoose;
+const {ObjectId}=Schema;
 
 const TopicSchema=new Schema({
     // 话题信息
@@ -50,3 +50,6 @@ TopicSchema.virtual('tabName').get(function(){
     })
     return pair?pair.name:'';
 })
+
+const Topic=mongoose.model('Topic',TopicSchema)
+module.exports=Topic
