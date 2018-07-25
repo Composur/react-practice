@@ -72,7 +72,7 @@ class User extends Base {
     // 登录
     login(req, res) {
         const from = new formidable.IncomingForm();
-        form.parse(req, function (err, fields, files) {
+        form.parse(req, async(err, fields, files) => {
             if (err) {
                 throw new Error(err)
             }
@@ -85,7 +85,7 @@ class User extends Base {
             if (!mobile || !/^1[3,5,7,8,9]\w{9}$/.test(mobile)) {
                 return res.send({status: 0, type: 'ERROR_MOBILE_IS_INVALID', message: '请输入正确的手机号'})
             };
-            const exitUser = UserModel.findOne({mobile})
+            const exitUser = await UserModel.findOne({mobile})
             if (!exitUser) {
                 return res.send({status: 0, type: 'ERROR_USER_IS_NOT_EXITS', message: '该手机号尚未注册'})
             }
@@ -121,7 +121,7 @@ class User extends Base {
     forgetPass(req, res) {
         const form = new formidable.IncomingForm();
         // 注意是异步的代码
-        form.parse(req, async  (err, fields, files)=>{
+        form.parse(req, async(err, fields, files) => {
             if (err) {
                 throw new Error(err)
             }
@@ -147,22 +147,73 @@ class User extends Base {
                 return res.send({status: 0, type: 'ERROR_USER_IS_NOT_EXITS', message: '尚未注册'})
             }
             // await
-            const bcryptPassword= await this.encryption(newPassword)
-            exitUser.password=bcryptPassword;
+            const bcryptPassword = await this.encryption(newPassword)
+            exitUser.password = bcryptPassword;
             // await
             await exitUser.save();
-            return res.send({
-                status:1
-            });
-        });       
+            return res.send({status: 1});
+        });
     }
 
     // 用户信息
     userInfo(req, res, next) {
         // 获取当前session中的用户信息
-        res.send({status:1,data:req.session.user})
+        res.send({status: 1, data: req.session.user})
     }
     // 更新个人信息
+    updateUserInfo(req, res, next) {
+        const form = formidable.IncomingForm()
+        form.parse(req, async(err, fields, files) => {
+            if (err) {
+                throw new Error(err)
+            }
+            try {} catch (error) {}
+            const {id, name: currentName} = req.session.user;
+            const {name} = fields
+            const exitUser = await UserModel.findOne({name})
+            if (exitUser && name !== currentName) {
+                return res.send({status: 0, type: 'NICKNAME_HAS_BEEN_REGISTERED', message: '昵称已经注册过了'})
+            }
+            // 更新资料
+            const doc = await UserModel.findByIdAndUpdate(id, {
+                ...fields
+            }, {new: true})
+            req.session.user = doc;
+            return res.send({status: 1, message: '更新成功'})
+        })
+    }
+    // 修改密码
+    updatePass(req, res) {
+        const form = new formidable.IncomingForm();
+        form.parse(req, async(err, fields, files) => {
+            if (err) {
+                throw new Error(err)
+            }
+            const {id} = req.session.id;
+            const {oldPass, newPass} = fields
+            try {
+                if (!oldPass) {
+                    throw new Error(err)
+                } else if (!newPass || !/(?!^(\d+|[a-zA-Z]+|[~!@#$%^&*?]+)$)^[\w~!@#$%^&*?].{6,18}/.test(newPass)) {
+                    throw new Error('新密码必须为数字、字母和特殊字符其中两种组成并且在6-18位之间');
+                }
+            } catch (error) {
+                return res.send({status: 0, type: 'ERROR_PARMAS_OF_UPDATE_PASS', message: error.message})
+            }
+            const exitUser = UserModel.findById(id)
+            // 旧密码的校验
+            const isMatch = bcrypt.compare(oldPass, exitUser.password)
+
+            if (isMatch) {
+                const bcryptPassword = await this.encryption(newPass)
+                exitUser.password = bcryptPassword
+                await exitUser.save()
+                return res.send({status: 1, message: '密码修改成功'})
+            } else {
+                return res.send({status: 0, type: 'ERROR_PASSWORD_IS_NOT_MATCH', message: '旧密码错误'})
+            }
+        })
+    }
 }
 
 module.exports = new User()
