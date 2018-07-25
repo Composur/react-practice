@@ -78,6 +78,14 @@ class User extends Base{
     login(req,res){
         res.send('login')
     }
+    // 用户信息
+    userInfo(req,res,next){
+        res.send({
+            status:0,
+            type:'ERR',
+            message:'获取用户信息失败！'
+        })
+    }
 }
 
 module.exports = new User()
