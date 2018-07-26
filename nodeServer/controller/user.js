@@ -142,7 +142,10 @@ class User extends Base {
             } catch (error) {
                 res.send({status: 0, type: 'ERROR_PARMAS_OF_FORGET_PASS', message: error.message})
             }
-            const exitUser = await UserModel.findOne({mobile})
+            // await 命令后面的 Promise 对象，运行结果可能是 rejected，所以最好把 await 命令放在 try...catch 代码块中。
+            const exitUser = await UserModel.findOne({mobile}).catch(err=>{
+                console.log(err)
+            })
             if (!exitUser) {
                 return res.send({status: 0, type: 'ERROR_USER_IS_NOT_EXITS', message: '尚未注册'})
             }
