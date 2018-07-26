@@ -1,3 +1,4 @@
+console.time('start')
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -83,3 +84,4 @@ app.use(handler.error500)
 
 
 module.exports = app;
+console.timeEnd('start')

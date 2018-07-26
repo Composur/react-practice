@@ -10,7 +10,7 @@ class User extends Base {
         // 创建一个form表单
         const form = new formidable.IncomingForm()
         // parse方法解析req中包含的form表单提交的数据
-        form.parse(req, async(err, fields) => {
+        form.parse(req, async (err, fields) => {
             if (err) {
                 throw new Error(err)
             }
@@ -72,7 +72,7 @@ class User extends Base {
     // 登录
     login(req, res) {
         const from = new formidable.IncomingForm();
-        form.parse(req, async(err, fields, files) => {
+        form.parse(req, async (err, fields, files) => {
             if (err) {
                 throw new Error(err)
             }
@@ -121,7 +121,7 @@ class User extends Base {
     forgetPass(req, res) {
         const form = new formidable.IncomingForm();
         // 注意是异步的代码
-        form.parse(req, async(err, fields, files) => {
+        form.parse(req, async (err, fields, files) => {
             if (err) {
                 throw new Error(err)
             }
@@ -166,7 +166,7 @@ class User extends Base {
     // 更新个人信息
     updateUserInfo(req, res, next) {
         const form = formidable.IncomingForm()
-        form.parse(req, async(err, fields, files) => {
+        form.parse(req, async (err, fields, files) => {
             if (err) {
                 throw new Error(err)
             }
@@ -188,7 +188,7 @@ class User extends Base {
     // 修改密码
     updatePass(req, res) {
         const form = new formidable.IncomingForm();
-        form.parse(req, async(err, fields, files) => {
+        form.parse(req, async (err, fields, files) => {
             if (err) {
                 throw new Error(err)
             }
