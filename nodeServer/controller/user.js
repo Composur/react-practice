@@ -5,7 +5,19 @@ const UserModel = require('../models/user.js')
 const BehaviorModel = require('../models/behavior')
 const TopicModel = require('../models/topic')
 const Base = require('./base')
+const SALT_WORK_FACTOR = 10;
 class User extends Base {
+    constructor(){
+        // super代表父类的构造函数,
+        super()// ES6 要求，子类的构造函数必须执行一次 super 函数，否则会报错。因为子类没有自己的this而是继承父类的this
+        this.register=this.register.bind(this)
+        this.login=this.login.bind(this)
+        this.forgetPass=this.forgetPass.bind(this)
+        this.logout=this.login.bind(this)
+        this.userInfo=this.userInfo.bind(this)
+        this.updateUserInfo=this.updateUserInfo.bind(this)
+        this.updatePass=this.updatePass.bind(this)
+    }
     register(req, res) {
         // 创建一个form表单
         const form = new formidable.IncomingForm()
