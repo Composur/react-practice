@@ -1,19 +1,22 @@
-+---public
-|   +---images
-|   +---javascripts
-|   \---stylesheets
-|           style.css
-|
-+---routes
-|       index.js
-|       users.js
-|
-\---views
-        error.jade
-        index.jade
-        layout.jade
+### 提供数据服务的nodeServer
 
+>为了方便调试用nodemon启动server
 
+```
+git clone https://github.com/Composur/react-practice.git
+```
+
+```
+cd react-practice
+```
+
+```
+npm install 
+```
+
+```
+npm run dev 
+```
 ### API设计
 
 ```
