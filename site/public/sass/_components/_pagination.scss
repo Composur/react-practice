@@ -1,0 +1,39 @@
+.pagination {
+  margin-top: $pagination-margin-top;
+  text-align: center;
+  li {
+    display: inline-block;
+    margin-right: 8px;
+    @include size($pagination-block-size);
+    line-height: $pagination-block-size;
+    text-align: center;
+    border-radius: $pagination-block-radius;
+    user-select: none;
+    border: 1px solid $light-gray;
+    background-color: $white;
+    font-family: Arial;
+    vertical-align: middle;
+    cursor: pointer;
+    a {
+      display: block;
+      @include size(100%, 100%);
+    }
+    &.disabled {
+      border-color: $light-gray;
+      a {
+        color: rgba(0,0,0,.25);
+        cursor: not-allowed;
+      }
+    }
+    &.active {
+      border-color: $theme-color;
+      a {
+        color: $theme-color;
+        font-weight: 500;
+      }
+    }
+    .practice {
+      font-size: $global-font-size-small;
+    }
+  }
+}

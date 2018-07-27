@@ -1,0 +1,43 @@
+.float-action {
+  position: fixed;
+  @if $float-action-right {
+    right: $float-action-horizontal;
+  } @else {
+    left: $float-action-horizontal;
+  }
+  top: 50%;
+  transform: translateY(-50%);
+  a {
+    position: relative;
+    display: block;
+    margin-bottom: 10px;
+    @include size($float-action-size);
+    line-height: $float-action-size;
+    font-size: $float-action-icon-size;
+    text-align: center;
+    background: $white;
+    border-radius: $falot-action-radius;
+    box-shadow: 1px 1px 6px rgba(0,0,0,.2);
+    &.active {
+      color: $theme-color;
+    }
+    .number {
+      position: absolute;
+      top: -4px;
+      right: 0px;
+      height: 12px;
+      line-height: 12px;
+      padding: 0 3px;
+      font-size: 10px;
+      color: $white;
+      background: $dark-gray;
+      border-radius: 6px;
+    }
+  }
+  @media (max-width: $global-body-width + 400px) {
+    left: 20px;
+  }
+  @media (max-width: $global-body-width + 150px) {
+    display: none;
+  }
+}

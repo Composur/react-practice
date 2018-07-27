@@ -1,0 +1,44 @@
+.topic-detail {
+  margin-bottom: 80px;
+  .author {
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+    .avatar {
+      flex: 0 0 40px;
+      margin-right: 10px;
+      @include size(40px);
+      img {
+        border-radius: 50%;
+      }
+    }
+  }
+  .text {
+    flex: auto;
+    a {
+      display: block;
+      font-weight: bold;
+    }
+    span {
+      font-size: 13px;
+      color: $dark-gray;
+      & + span {
+        margin-left: 10px;
+      }
+    }
+  }
+  .title {
+    margin-top: 24px;
+    margin-bottom: 16px;
+    padding-bottom: .3em;
+    line-height: 1.25;
+    font-size: 2em;
+    font-weight: 600;
+  }
+  .action {
+    margin-top: 20px;
+    a {
+      margin-right: 10px;
+    }
+  }
+}

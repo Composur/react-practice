@@ -1,0 +1,59 @@
+body {
+  line-height: $global-line-height;
+  font-family: $global-font-family;
+  font-size: $global-font-size;
+  color: $black;
+  border-top: 3px solid $theme-color;
+  background: $global-body-bg;
+  &.hide-top {
+    border-top-color: transparent;
+  }
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: $global-font-color;
+  @include transition;
+  @include hover {
+    color: $theme-color;
+  }
+}
+
+.layout {
+  display: flex;
+  margin: 0 auto;
+  width: $global-body-width;
+  &>.layout-content {
+    flex: 3;
+    margin-right: 20px;
+    overflow: hidden;
+    &.attach {
+      padding: $global-default-padding;
+      background: $white;
+    }
+  }
+  &>.layout-full {
+    flex: 1;
+    padding: $global-default-padding;
+    background: $white;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  &>.layout-sider {
+    flex: 1;
+    overflow: hidden;
+  }
+}
+
+.main {
+  padding: 20px 0;
+  min-height: $global-min-height;
+}
+
+.hidden {
+  display: none;
+}

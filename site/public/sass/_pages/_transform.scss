@@ -1,0 +1,24 @@
+.transform {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  background: $global-body-bg;
+  z-index: $zIndex-5;
+  i {
+    font-size: 80px;
+  }
+  strong {
+    display: block;
+    margin: 10px 0;
+    font-size: 18px;
+  }
+  .pra-success {
+    color: $success;
+  }
+  .pra-error {
+    color: $error;
+  }
+}

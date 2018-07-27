@@ -1,0 +1,38 @@
+.btn {
+  display: inline-block;
+  padding: $btn-padding;
+  min-width: $btn-min-width;
+  color: $theme-color;
+  border: 1px solid $theme-color;
+  text-align: center;
+  border-radius: $btn-border-radius;
+  background: $white;
+  cursor: pointer;
+  @include transition(background 0.6s);
+  @include hover {
+    color: $white;
+    background: $theme-color;
+  }
+  &.disabled {
+    background: $light-gray;
+    border-color: $gray;
+    color: $gray;
+    cursor: no-drop;
+  }
+  &.error {
+    color: $error;
+    border-color: $error;
+    @include hover {
+      color: $white;
+      background: $error;
+    }
+  }
+  &.warn {
+    color: $warn;
+    border-color: $warn;
+    @include hover {
+      color: $white;
+      background: $warn;
+    }
+  }
+}
