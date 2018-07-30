@@ -5,19 +5,23 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var app = express();
 
-
+const bodyParse=require('body-parser')
 const session = require('express-session');
 const connectMongo = require('connect-mongo');
 const Router=require('./routes/index')
 // default config
 const config=require('./config/config')
 // connect mongodb 
-const mongoose=require('./mongoose/mongo')
+require('./mongoose/mongo')
 
 
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+
+
+app.use(bodyParse.urlencoded({extended:false}))
+app.use(bodyParse.json())
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: false }));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -48,6 +52,8 @@ const ALLOW_ORIGIN=[
   'localhost:3000',
   'localhost:3001',
   'localhost:3002',
+  'localhost:3010',
+  'localhost:3011',
 ]
 
 app.all("*",function(req,res,next){

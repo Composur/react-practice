@@ -4,7 +4,7 @@
 
  const path=require('path')
  const config={
-    port:3004
+    port:3010
  }
  
  module.exports=config

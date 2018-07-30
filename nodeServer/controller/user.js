@@ -7,6 +7,7 @@ const TopicModel = require('../models/topic')
 const Base = require('./base')
 class User extends Base {
     register(req, res) {
+        console.log('reqUrl'+req.body)
         // 创建一个form表单
         const form = new formidable.IncomingForm()
         // parse方法解析req中包含的form表单提交的数据
