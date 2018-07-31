@@ -29,16 +29,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 // cookie and session
 // 解析`cookie`、设置`session`并保存于`MongoDB`数据库中
 const MongoStore=connectMongo(session)
+// cookie加密
 app.use(cookieParser(config.session_secret));
 app.use(session({
-  name:'practice',
-  secret:config.session_secret,
-  resave:true,
+  name:'practice',//默认connect.id
+  secret:config.session_secret,//签名 随便写
+  resave:true,//如果没有修改不保存session
   saveUninitialized:false,
   cookie:{
     httpOnly:true,
-    secure:false,
+    secure:false,//true的话只有在https才可以访问
     maxAge:2592000000,
+    signed:true
   },
   store:new MongoStore({
     url:config.database
