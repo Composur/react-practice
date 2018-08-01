@@ -42,6 +42,7 @@ app.use(session({
     maxAge:2592000000,
     signed:true
   },
+  // 把session信息保存到数据库中，为了负载均衡Nginx转发到不同的服务器也可以从数据库获取的session信息
   store:new MongoStore({
     url:config.database
   })

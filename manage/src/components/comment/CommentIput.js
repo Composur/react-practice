@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 
 export default class CommentIput extends Component {
+    // state 是让组件控制自己的状态，props 是让外部对组件自己进行配置。
     constructor(){
         super();
         this.state={
