@@ -2,6 +2,7 @@ const webpack=require('webpack')
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const NyanProgressPlugin = require('nyan-progress-webpack-plugin')  
 module.exports = {
   entry: {
    app: './src/index.js',
@@ -10,8 +11,8 @@ module.exports = {
   devServer:{
     contentBase: path.join(__dirname, "dist"),
     compress: true,//gzip压缩
-    port: 9000,
-    clientLogLevel: "none",//控制台不答应繁琐信息
+    // port: 9000,
+    // clientLogLevel: "none",//控制台不答应繁琐信息
     historyApiFallback: true,//404替换index.html
     // host: "0.0.0.0",
     hot: true,
@@ -26,6 +27,7 @@ module.exports = {
     ]
   },
   plugins:[
+    new NyanProgressPlugin(), 
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new CleanWebpackPlugin(['dist']),
@@ -37,4 +39,5 @@ module.exports = {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
+  // mode: "production"
 };

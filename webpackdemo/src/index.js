@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import Print from './print'
+import './style.css'
 function component() {
     var element = document.createElement('div');
     const btn=document.createElement('button')
@@ -12,9 +13,3 @@ function component() {
 
   document.body.appendChild(component());
 
-  if(module.hot){
-    module.hot.accept('./print.js',function(){
-      console.log('printme')
-      PrintMe()
-    })
-  }
