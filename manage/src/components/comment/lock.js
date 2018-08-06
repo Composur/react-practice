@@ -8,7 +8,6 @@ export default class Clock extends Component{
         }
     }
     componentWillMount(){
-        console.log('will')
       this.time=setInterval(()=>{
            this.setState({
                data:new Date()
@@ -16,7 +15,6 @@ export default class Clock extends Component{
        },1000)
     }
     componentDidMount(){
-        console.log('Did')
     }
     componentWillUnmount(){
         clearInterval(this.time)

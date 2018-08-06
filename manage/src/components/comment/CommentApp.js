@@ -17,7 +17,6 @@ export default class Comment extends Component {
     }
     _loadComments(){
         let comments=localStorage.getItem('comments')
-        console.log(comments)
         if(comments){
             comments=JSON.parse(comments)
             this.setState({comments})
@@ -48,11 +47,17 @@ export default class Comment extends Component {
             isShowClock:!this.state.isShowClock
         })
     }
+    handleDeleteComment(index) {
+        const comments=this.state.comments
+        comments.splice(index,1)
+        this.setState({comments})
+        this._saveComments(comments)
+    }
     render(){
         return(
             <div className='wrapper'>
             <CommentIput onSubmit={this.handleSubmitComment.bind(this)}/>
-            <CommentList comments={this.state.comments}/>
+            <CommentList comments={this.state.comments} onDeleteComment={this.handleDeleteComment.bind(this)}/>
             <div>
             {this.state.isShowClock?<Clock/>:null}
             <button onClick={this.isShowClock.bind(this)}>ClockToggle</button>
