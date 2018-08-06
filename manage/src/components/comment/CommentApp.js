@@ -3,26 +3,45 @@ import CommentIput from './CommentIput'
 import CommentList from './CommentList'
 import Clock from './lock'
 import AntoFocusInput from './AutoFocusInput'
+import Cart from './Cart'
 export default class Comment extends Component {
     constructor(){
         super()
         this.state={
             comments:[],
-            isShowClock:true
+            isShowClock:true,
         }
+    }
+    componentWillMount(){
+        this._loadComments()
+    }
+    _loadComments(){
+        let comments=localStorage.getItem('comments')
+        console.log(comments)
+        if(comments){
+            comments=JSON.parse(comments)
+            this.setState({comments})
+        }else{
+            return
+        }
+    }
+    _saveComments(comments){
+        localStorage.setItem('comments',JSON.stringify(comments))
     }
     handleSubmitComment(comment){
         if(!comment) return;
         if(!comment.username){
-            alert('请输入用户名！')
+            alert('请输入用户名！');
+            return; 
         }else if(!comment.content){
             alert('请输入评论内容！')
             return  
-        }   
-        this.state.comments.push(comment)
-        this.setState({
-           comments:this.state.comments
-       })
+        } 
+        const comments=this.state.comments
+        comments.push(comment)
+        this.setState({comments})
+    //    localStorage
+       this._saveComments(comments)
     }
     isShowClock() {
         this.setState({
@@ -38,7 +57,7 @@ export default class Comment extends Component {
             {this.state.isShowClock?<Clock/>:null}
             <button onClick={this.isShowClock.bind(this)}>ClockToggle</button>
             </div>
-            <AntoFocusInput content={<div>tset</div>}/>
+            <Cart/>
             </div>
         )
     }
