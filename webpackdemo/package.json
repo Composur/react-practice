@@ -24,5 +24,8 @@
     "webpack-dev-server": "^3.1.5",
     "webpack-merge": "^4.1.4",
     "xml-loader": "^1.2.1"
+  },
+  "dependencies": {
+    "webpackbar": "^2.6.1"
   }
 }
