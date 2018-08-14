@@ -2,27 +2,32 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 export default class CommentIput extends Component {
     static propTypes={
-        onSubmit:PropTypes.func
+        onSubmit:PropTypes.func,
+        username:PropTypes.any,
+        onUserNameInputBlur:PropTypes.func
+    }
+    static defaultProps={
+        username:''
     }
     // state 是让组件控制自己的状态，props 是让外部对组件自己进行配置。
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state={
-            username:'',
+            username:props.username,//增加复用性从props上取的字段
             content:''
         }
     }
-    componentWillMount(){
-        this._loadUsername()
-    }
-    _loadUsername(){
-        const username=localStorage.getItem('username')
-        if(username){
-            this.setState({
-                username
-            })
-        }
-    }
+    // componentWillMount(){
+    //     this._loadUsername()
+    // }
+    // _loadUsername(){
+    //     const username=localStorage.getItem('username')
+    //     if(username){
+    //         this.setState({
+    //             username
+    //         })
+    //     }
+    // }
     handleUsernameChange(e){
         this.setState({
             username:e.target.value,
