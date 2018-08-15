@@ -123,6 +123,9 @@ module.exports = {
         include: paths.appSrc,
       },
       {
+
+      },
+      {
         // "oneOf" will traverse all following loaders until one will
         // match the requirements. When no loader matches it will fall
         // back to the "file" loader at the end of the loader list.
@@ -157,7 +160,7 @@ module.exports = {
           // In production, we use a plugin to extract that CSS to a file, but
           // in development "style" loader enables hot editing of CSS.
           {
-            test: /\.css$/,
+            test: /\.css|less$/,
             use: [
               require.resolve('style-loader'),
               {
@@ -185,6 +188,9 @@ module.exports = {
                     }),
                   ],
                 },
+              },
+              {
+                loader: require.resolve('less-loader') // compiles Less to CSS
               },
             ],
           },
