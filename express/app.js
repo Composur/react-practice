@@ -14,7 +14,7 @@ const Router=require('./routes/index')
 require('./config/dbConnect')
 
 // middleware
-app.use(cors)
+app.use(cors())
 // 接受任何类型的请求默认是string和array
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
