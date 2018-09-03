@@ -1,0 +1,12 @@
+.btn{
+    color: white;
+    border: 1px solid #ccc;
+    background:#D30C39;
+    font-size: 16px;
+    padding: 6px;
+    border-radius: 5px;
+}
+.btn:focus{
+    outline: none;
+    border:3px solid black;
+}

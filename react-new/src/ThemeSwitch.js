@@ -1,5 +1,6 @@
 import React ,{Component} from 'react'
 import ProTypes from 'prop-types'
+import Btn from './component/button'
 class ThemeSwitch extends Component{
     static contextTypes={
         store:ProTypes.object
@@ -31,6 +32,7 @@ class ThemeSwitch extends Component{
     render(){
         return(
             <div>
+                <Btn value='按钮1'></Btn>
                 <button style={{color:this.state.themeColor}} onClick={this.handelSwitchColor.bind(this,'red')}>Red</button>
                 <button style={{color:this.state.themeColor}} onClick={this.handelSwitchColor.bind(this,'blue')}>Blue</button>
             </div>
