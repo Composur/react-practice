@@ -6,7 +6,7 @@ module.exports = merge(common, {
     devServer: {
         contentBase: path.join(__dirname, "dist"),
         compress: true,//gzip压缩
-        // port: 9000,
+        port: 9000,
         // clientLogLevel: "none",//控制台不答应繁琐信息
         historyApiFallback: true,//404替换index.html
         // host: "0.0.0.0",
@@ -14,3 +14,4 @@ module.exports = merge(common, {
         noInfo: true
     }
 });
+
