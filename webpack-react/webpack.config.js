@@ -7,6 +7,7 @@ const htmlPlug=new HtmlWebpackPlugin({
 })
 
 module.exports={ //node api webpack基于node 所以是node的写法
+    devtool: 'inline-source-map',
     mode:'development', //production
       plugins: [htmlPlug],
       module:{ //所有第三方模块的匹配规则 webpack默认只能打包.js文件
@@ -18,5 +19,11 @@ module.exports={ //node api webpack基于node 所以是node的写法
             }
           ]
             
+      },
+      resolve:{
+        extensions:['.js','.jsx','.json'] ,//import的时候这几个的扩展名可以不写
+        alias:{
+          '@':path.join(__dirname,'./src/components')
+        }
       }
 }

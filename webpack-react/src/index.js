@@ -1,17 +1,22 @@
 import React ,{Component}from 'react'
 import ReactDOM from 'react-dom'
 
-let num=100
+import Hello from '@/hello'
+
 const numbers = [1, 2, 3, 4, 5];
 const listItems = numbers.map((number) =>
-  <li>{number}</li>
+  <li key={number}>{number}</li>
 );
+
+const vals={
+    name:'tom',
+}
 
 class Text extends Component{
     render(){
         return(
            <div>
-           <h1>{num}</h1>
+           <Hello {...vals}/>
            <ul>{listItems}</ul>
            </div>
         )
