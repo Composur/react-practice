@@ -16,14 +16,28 @@ module.exports={ //node api webpack基于node 所以是node的写法
               test: /\.(js|jsx)$/,
               exclude: /node_modules/,
               use: ['babel-loader']
+            },
+            {
+              test: /\.less$/,
+              use: [{
+                loader: 'style-loader'
+              }, {
+                loader: 'css-loader', options: {
+                  sourceMap: true
+                }
+              }, {
+                loader: 'less-loader', options: {
+                  sourceMap: true
+                }
+              }]
             }
           ]
             
       },
       resolve:{
-        extensions:['.js','.jsx','.json'] ,//import的时候这几个的扩展名可以不写
+        extensions:['.js','.jsx','.json','.css','.less'] ,//import的时候这几个的扩展名可以不写
         alias:{
-          '@':path.join(__dirname,'./src/components')
+          '@':path.join(__dirname,'./src/')
         }
       }
 }
