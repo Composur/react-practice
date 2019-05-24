@@ -12,10 +12,8 @@ export default class myTable extends React.Component {
 
   async  componentDidMount() {
         const data = []
-        // const url='http://localhost:8124/msg'
-        const url='http://120.78.133.26:8124/msg'
-
-
+        const url='http://localhost:8124/msg'
+        
     await  $.get(url).then(result=>{
            (result.data).forEach(element => {
                console.log(element)
