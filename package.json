@@ -2,5 +2,8 @@
   "dependencies": {
     "react": "15",
     "react-dom": "^16.8.6"
+  },
+  "devDependencies": {
+    "redux-devtools-extension": "^2.13.8"
   }
 }
