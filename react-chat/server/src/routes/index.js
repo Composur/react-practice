@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 const User=require('../models/user')
-
+const md5=require('blueimp-md5')
+const {log,error}=console
 // 统一错误处理
 router.use(function(err, req, res, next) {
   console.error(err.stack);
@@ -40,8 +41,39 @@ router.post('/register',function(req,res){
       res.json(responseData)
       return
     }
+    const user=new User({username:username,password:password,type:type})
+    user.save((err)=>{
+      if(err){
+        responseData.code=1
+        responseData.message=err
+        return
+      }else{
+        responseData.code=0
+        responseData.message='注册成功'
+        res.json(responseData)
+        return
+      }
+    })
   })
 })
+
+// 插入数据测试
+
+function testInsert(){
+  // 先生成一个user
+  const user1=new User({username:'admin',password:md5('admin'),type:'boss'})
+  user1.save(function(err,user){
+    if(err){
+      error('-----------'+err+'-------------')
+    }else{
+      log(user)
+    }
+  })
+}
+// testInsert()
+
+
+
 
 router.get('/login',function(req,res){
   const {username,password}=req.query
