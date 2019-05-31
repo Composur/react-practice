@@ -1,9 +1,69 @@
-import React ,{Component} from 'react'
+import React, { Component } from 'react'
+import { NavBar, Icon, WingBlank, WhiteSpace, List, InputItem,Radio,Button} from 'antd-mobile';
 
-class Register extends Component{
-    render(){
-        return(
-            <div>Register</div>
+import Logo from '../../components/logo'
+import './register.less'
+const ListItem=List.Item
+class Register extends Component {
+    constructor() {
+        super()
+        this.state = {
+            username: '',
+            password: '',
+            passwordAgain:'',
+            type:''
+        }
+        this.registerHandle=this.registerHandle.bind(this)
+        this.toLogin=this.toLogin.bind(this)
+    }
+    handleChange(name,val) {
+        this.setState({
+            [name]:val
+        })
+    }
+    registerHandle(){
+        console.log(this.state)
+    }
+    toLogin(){
+        this.props.history.replace('/login')
+    }
+    backClick() {
+        alert('back')
+    }
+    render() {
+        const {type}=this.state
+        return (
+            <div className='border'>
+                <NavBar
+                    onLeftClick={this.backClick.bind(this)}
+                    mode="dark"
+                    leftContent="返回"
+                    rightContent={[
+                        <Icon key="0" type="search" style={{ marginRight: '16px' }} />,
+                        <Icon key="1" type="ellipsis" />,
+                    ]}
+                >智能CRM</NavBar>
+                <Logo></Logo>
+                <WingBlank>
+                    <WhiteSpace />
+                    <List>
+                    <WhiteSpace />
+                        <InputItem clear  onChange={val=>{this.handleChange('username',val)}} placeholder='请输入用户名'></InputItem>
+                        <InputItem clear  type='password' onChange={val=>{this.handleChange('password',val)}} placeholder='请输入密码' ></InputItem>
+                        <InputItem clear  type='password' onChange={val=>{this.handleChange('passwordAgain',val)}} placeholder='请再次输入密码'></InputItem>
+                    </List>
+                    <ListItem>
+                        <span>类型：</span>
+                        <Radio checked={type==='admin'?true:false} className="my-radio" onChange={e => this.handleChange('type','admin')}>类型一</Radio>
+                        <Radio checked={type==='normal'?true:false} className="my-radio" onChange={e => this.handleChange('type','normal')}>类型二</Radio>
+                    </ListItem>
+                    <WhiteSpace />
+                    <Button type="primary" onClick={this.registerHandle}>注册</Button>
+                    <WhiteSpace />
+                    <Button onClick={this.toLogin}>已有账户</Button>
+                </WingBlank>
+
+            </div>
         )
     }
 }
