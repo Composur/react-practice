@@ -34,11 +34,12 @@ router.get('/', function(req, res, next) {
 
 router.post('/register',function(req,res){
   const {username,password,type}=req.body
+  console.log(req.body)
   User.findOne({
     username:username
   }).then(e=>{
+    error(e)
     if(e){
-      responseData.code=1
       responseData.message='用户名已存在'
       res.json(responseData)
       return
@@ -50,7 +51,6 @@ router.post('/register',function(req,res){
         responseData.message=err
         return
       }else{
-        responseData.code=0
         responseData.success=true
         responseData.message='注册成功'
         res.json(responseData)
@@ -85,7 +85,7 @@ router.post('/login',function(req,res){
   User.findOne({username:username,password:password},filters).then((data)=>{
 
     if(data){
-      
+
       responseData.code=1
       responseData.success = true
       responseData.message = '登录成功'

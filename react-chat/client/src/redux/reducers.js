@@ -4,12 +4,19 @@
  */
 
 import {combineReducers} from 'redux'
+import{AUTH_SUCCESS,ERROR_MSG} from './action-types'
+
+// actions
+
 
 export function loginUserInfo(previousState = {username:'',type:'',message:''}, action) { //管理user type=boss message err
    switch(action.type){
-        case '':
 
-        break;
+        case AUTH_SUCCESS:
+            return {...previousState,...action.data}
+
+        case ERROR_MSG:
+            return {...previousState,message:action.data}
 
         default:
         return previousState

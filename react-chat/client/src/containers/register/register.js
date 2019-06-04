@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import { NavBar, Icon, WingBlank, WhiteSpace, List, InputItem,Radio,Button} from 'antd-mobile';
 
+import {connect} from 'react-redux'
+// 异步的action
+import {register} from '../../redux/actions'
+
 import Logo from '../../components/logo'
 import './register.less'
 const ListItem=List.Item
@@ -22,7 +26,7 @@ class Register extends Component {
         })
     }
     registerHandle(){
-        console.log(this.state)
+        this.props.register(this.state)
     }
     toLogin(){
         this.props.history.replace('/login')
@@ -67,4 +71,13 @@ class Register extends Component {
         )
     }
 }
-export default Register
+// 只是一个UI组件
+// export default Register
+
+// 包装生成一个容器组件 
+
+export default connect(state => ({}),
+
+{register} //action
+
+)(Register)
