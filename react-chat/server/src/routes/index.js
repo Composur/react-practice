@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const User=require('../models/user')
 const md5=require('blueimp-md5')
+const  filters={password:0,__v:0} //过滤返回前端属性
 const {log,error}=console
 // 统一错误处理
 router.use(function(err, req, res, next) {
@@ -14,6 +15,7 @@ var responseData;
 router.use(function (req, res, next) {
     responseData = {
         code: 0,
+        success:false,
         message: '',
     }
     next();
@@ -49,6 +51,7 @@ router.post('/register',function(req,res){
         return
       }else{
         responseData.code=0
+        responseData.success=true
         responseData.message='注册成功'
         res.json(responseData)
         return
@@ -75,21 +78,32 @@ function testInsert(){
 
 
 
-router.get('/login',function(req,res){
-  const {username,password}=req.query
-  console.log(req.query)
-  if(username=='x'){
-    res.send({
-      code:'1',
-      success:true
-    })
-  }else{
-    res.send({
-      code:'0',
-      success:false,
-      msg:'密码错误'
-    })
-  }
+router.post('/login',function(req,res){
+
+  const {username,password}=req.body
+
+  User.findOne({username:username,password:password},filters).then((data)=>{
+
+    if(data){
+      
+      responseData.code=1
+      responseData.success = true
+      responseData.message = '登录成功'
+      responseData.data = data
+      res.cookie('user_id',data._id,{ maxAge:1000*60*60*24})
+      res.json(responseData)
+      return
+
+    }else{
+      responseData.code=0
+      responseData.message='登录失败'
+      res.json(responseData)
+      return
+    }
+
+  }).catch((err)=>{
+    log(err)
+  })
 })
 
 

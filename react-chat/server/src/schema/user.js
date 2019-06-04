@@ -8,7 +8,11 @@ module.exports = new Schema({
     username: {type:String,required:true}, // 支持的数据类型,String Number Date Buffer Boolean Mixed Objectid Array
     password: {type:String,required:true},
     type: {type:String,required:true},
-    avatar:{type:String}
+    avatar:{type:String},
+    post:{type:String},
+    info:{type:String},
+    company:{type:String},
+    salary:{type:String}
 })
 
 // 也可以这样增加 
