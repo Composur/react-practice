@@ -5,31 +5,19 @@
 
 import {combineReducers} from 'redux'
 
-export function loginUserInfo(previousState = {key:'in'}, action) {
-    // if (action.type === GET_LOGIN_USER_INFO || action.type === LOGIN) {
-    //     return action.data.userInfo || {}
-    // } else if (action.type === LOGOUT) {
-    //     return {}
-    // } else {
-    //     return previousState
-    // }
-    return previousState
-}
-export function loginOut(previousState = {key:'out'}, action) {
-    return previousState
-}
+export function loginUserInfo(previousState = {username:'',type:'',message:''}, action) { //管理user type=boss message err
+   switch(action.type){
+        case '':
 
+        break;
 
-// export const makeRootReducer = (asyncReducers) => {
-//     const appReducer = combineReducers({
-//         loginUserInfo,
+        default:
+        return previousState
         
-//     })
-//     return (state, action) => {
-//         if (action.type === 'LOGOUT') {
-//           state = undefined
-//         }
-//         return appReducer(state, action)
-//       }
-// }
-export default combineReducers({loginUserInfo,loginOut})
+   }
+    
+}
+
+
+// 管理reduce
+export default combineReducers({loginUserInfo}) 
