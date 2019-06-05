@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import {baseUrl} from '../config/config.default.js'
+// import {baseUrl} from '../config/config.default.js'
 
 export default function (url, data = {}, type = 'GET') {
 

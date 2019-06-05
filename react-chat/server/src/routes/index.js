@@ -34,18 +34,16 @@ router.get('/', function(req, res, next) {
 
 router.post('/register',function(req,res){
   const {username,password,type}=req.body
-  console.log(req.body)
   User.findOne({
     username:username
   }).then(e=>{
-    error(e)
     if(e){
       responseData.message='用户名已存在'
       res.json(responseData)
       return
     }
     const user=new User({username:username,password:password,type:type})
-    user.save((err)=>{
+    user.save((err,result)=>{
       if(err){
         responseData.code=1
         responseData.message=err
@@ -53,6 +51,7 @@ router.post('/register',function(req,res){
       }else{
         responseData.success=true
         responseData.message='注册成功'
+        // responseData.payload=result
         res.json(responseData)
         return
       }
@@ -61,7 +60,6 @@ router.post('/register',function(req,res){
 })
 
 // 插入数据测试
-
 function testInsert(){
   // 先生成一个user
   const user1=new User({username:'admin',password:md5('admin'),type:'boss'})
@@ -75,6 +73,12 @@ function testInsert(){
 }
 // testInsert()
 
+function deleteAll(){
+  User.remove({username:'xiaozhi'}).then((result)=>{
+    error(result)
+  })
+}
+// deleteAll()
 
 
 
@@ -89,14 +93,14 @@ router.post('/login',function(req,res){
       responseData.code=1
       responseData.success = true
       responseData.message = '登录成功'
-      responseData.data = data
+      responseData.payload = data
       res.cookie('user_id',data._id,{ maxAge:1000*60*60*24})
       res.json(responseData)
       return
 
     }else{
       responseData.code=0
-      responseData.message='登录失败'
+      responseData.message='用户名或密码错误'
       res.json(responseData)
       return
     }

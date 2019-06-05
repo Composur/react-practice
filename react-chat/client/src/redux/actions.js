@@ -40,8 +40,8 @@ export const register = (data) => {
         const res = await reqRegister(data) //拿到数据
         const result=res.data
         //  拿到数据后无论成功或失败要去分发同步的action
-        if (result.success) {
-           dispatch(auth_success(result)) 
+        if (result.success&&result.payload) {
+           dispatch(auth_success(result.payload)) 
         }else{
            dispatch(auth_false(result.message))
         }   
@@ -63,13 +63,13 @@ export const login = (data) => {
 
         // 发送注册的异步请求
         const res = await reqLogin(data) //拿到数据
+        const result=res.data
 
         //  拿到数据后无论成功或失败要去分发同步的action
-        debugger
-        if(res.success&&res.data){
-           auth_success(res.data)
+        if(result.success&&result.payload){
+           dispatch(auth_success(result))
         }else{
-           auth_false(res.message)
+           dispatch(auth_false(result.message))
         }
     }
 }

@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import { NavBar, Icon, WingBlank, WhiteSpace, List, InputItem,Radio,Button} from 'antd-mobile';
 
 import Logo from '../../components/logo'
+
 import './login.less'
+
 const ListItem=List.Item
 class Login extends Component {
     constructor() {
@@ -12,8 +14,7 @@ class Login extends Component {
             password: '',
             type:''
         }
-        // this.handleChange=this.handleChange.bind(this)
-        this.registerHandle=this.registerHandle.bind(this)
+        this.loginHandle=this.loginHandle.bind(this)
         this.toRegister=this.toRegister.bind(this)
     }
     handleChange(name,val) {
@@ -21,8 +22,8 @@ class Login extends Component {
             [name]:val
         })
     }
-    registerHandle(){
-        console.log(this.state)
+    loginHandle(){
+        this.props.login(this.state)
     }
     toRegister(){
         this.props.history.replace('/register')
@@ -57,7 +58,7 @@ class Login extends Component {
                         <Radio checked={type==='normal'?true:false} className="my-radio" onChange={e => this.handleChange('type','normal')}>类型二</Radio>
                     </ListItem>
                     <WhiteSpace />
-                    <Button type="primary" onClick={this.registerHandle}>登陆</Button>
+                    <Button type="primary" onClick={this.loginHandle}>登陆</Button>
                     <WhiteSpace />
                     <Button onClick={this.toRegister}>注册</Button>
                 </WingBlank>
@@ -66,4 +67,7 @@ class Login extends Component {
         )
     }
 }
+
+//  这个一般会单独写一个container.js 
+// export default connect(state=>({}),{login})(Login)
 export default Login

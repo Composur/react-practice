@@ -76,7 +76,7 @@ class Register extends Component {
 
 // 包装生成一个容器组件 
 
-export default connect(state => ({}),
+export default connect(state =>({}),
 
 {register} //action
 

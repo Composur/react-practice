@@ -9,10 +9,11 @@ import{AUTH_SUCCESS,ERROR_MSG} from './action-types'
 // actions
 
 
-export function loginUserInfo(previousState = {username:'',type:'',message:''}, action) { //管理user type=boss message err
+export function loginUserInfo(previousState = {}, action) { //管理user type=boss message err
    switch(action.type){
 
         case AUTH_SUCCESS:
+            debugger
             return {...previousState,...action.data}
 
         case ERROR_MSG:
