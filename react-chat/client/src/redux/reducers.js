@@ -13,10 +13,11 @@ export function loginUserInfo(previousState = {}, action) { //管理user type=bo
    switch(action.type){
 
         case AUTH_SUCCESS:
-            debugger
-            return {...previousState,...action.data}
+        debugger
+            return {...action.data,redirectTo:'/'}
 
         case ERROR_MSG:
+        debugger
             return {...previousState,message:action.data}
 
         default:

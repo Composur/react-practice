@@ -10,7 +10,7 @@ import store from './redux/store'
 import Login from './containers/login'
 import Register from './containers/register'
 import Main from './containers/main'
-import './index.less'
+import './assets/style/index.less'
 FastClick.attach(document.body); //解决点击延迟300ms 
 
 

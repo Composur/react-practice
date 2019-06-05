@@ -8,15 +8,13 @@ import {reqRegister,reqLogin} from '../api'
 import{AUTH_SUCCESS,ERROR_MSG} from './action-types'
 
 // 验证成功
-const auth_success=(data)=>{
-    return{
+const auth_success=(data)=>({
         type:AUTH_SUCCESS,
         data:data
-    }
-}
+})
 
 // 验证失败返回message
-const auth_false=(message)=>{return {type:ERROR_MSG,data:message}}
+const auth_false=(message)=>({type:ERROR_MSG,data:message})
 
 
 //  注册
@@ -40,8 +38,8 @@ export const register = (data) => {
         const res = await reqRegister(data) //拿到数据
         const result=res.data
         //  拿到数据后无论成功或失败要去分发同步的action
-        if (result.success&&result.payload) {
-           dispatch(auth_success(result.payload)) 
+        if (result.success) {
+           dispatch(auth_success(result))
         }else{
            dispatch(auth_false(result.message))
         }   
@@ -66,7 +64,7 @@ export const login = (data) => {
         const result=res.data
 
         //  拿到数据后无论成功或失败要去分发同步的action
-        if(result.success&&result.payload){
+        if(result.success){
            dispatch(auth_success(result))
         }else{
            dispatch(auth_false(result.message))

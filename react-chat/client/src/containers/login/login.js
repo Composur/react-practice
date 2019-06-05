@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { NavBar, Icon, WingBlank, WhiteSpace, List, InputItem,Radio,Button} from 'antd-mobile';
+import {Redirect} from 'react-router-dom'
 
 import Logo from '../../components/logo'
 
@@ -33,6 +34,10 @@ class Login extends Component {
     }
     render() {
         const {type}=this.state
+        const {message,redirectTo}=this.props.loginUserInfo
+        if(redirectTo){
+            return <Redirect to={redirectTo}/>
+        }
         return (
             <div className='border'>
                 <NavBar
@@ -49,6 +54,7 @@ class Login extends Component {
                     <WhiteSpace />
                     <List>
                     <WhiteSpace />
+                        <span className='error-msg'>{message?message:null}</span>
                         <InputItem clear  onChange={val=>{this.handleChange('username',val)}} placeholder='请输入用户名'></InputItem>
                         <InputItem clear  type='password' onChange={val=>{this.handleChange('password',val)}} placeholder='请输入密码' ></InputItem>
                     </List>

@@ -2,12 +2,14 @@ import React, { Component } from 'react'
 import { NavBar, Icon, WingBlank, WhiteSpace, List, InputItem,Radio,Button} from 'antd-mobile';
 
 import {connect} from 'react-redux'
+import {Redirect} from 'react-router-dom'
 // 异步的action
 import {register} from '../../redux/actions'
 
 import Logo from '../../components/logo'
 import './register.less'
 const ListItem=List.Item
+
 class Register extends Component {
     constructor() {
         super()
@@ -27,6 +29,7 @@ class Register extends Component {
     }
     registerHandle(){
         this.props.register(this.state)
+        // Toast.fail(this.props.loginUserInfo.message, 1);
     }
     toLogin(){
         this.props.history.replace('/login')
@@ -36,6 +39,10 @@ class Register extends Component {
     }
     render() {
         const {type}=this.state
+        const {message,redirectTo}=this.props.loginUserInfo
+        if(redirectTo){
+          return   <Redirect to={redirectTo}/>
+        }
         return (
             <div className='border'>
                 <NavBar
@@ -53,6 +60,7 @@ class Register extends Component {
                     <List>
                     <WhiteSpace />
                         <InputItem clear  onChange={val=>{this.handleChange('username',val)}} placeholder='请输入用户名'></InputItem>
+                        <span className='error-msg'>{message?message:null}</span>
                         <InputItem clear  type='password' onChange={val=>{this.handleChange('password',val)}} placeholder='请输入密码' ></InputItem>
                         <InputItem clear  type='password' onChange={val=>{this.handleChange('passwordAgain',val)}} placeholder='请再次输入密码'></InputItem>
                     </List>
@@ -76,7 +84,9 @@ class Register extends Component {
 
 // 包装生成一个容器组件 
 
-export default connect(state =>({}),
+export default connect(state =>({
+    loginUserInfo:state.loginUserInfo
+}),
 
 {register} //action
 

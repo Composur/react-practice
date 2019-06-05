@@ -51,7 +51,6 @@ router.post('/register',function(req,res){
       }else{
         responseData.success=true
         responseData.message='注册成功'
-        // responseData.payload=result
         res.json(responseData)
         return
       }
