@@ -18,7 +18,7 @@ FastClick.attach(document.body); //解决点击延迟300ms
 ReactDOM.render(
     <Provider store={store}>
         <HashRouter>
-            <Switch>
+            <Switch>  {/* 独立路由 */}
                 <Route path='/login' component={Login}></Route>
                 <Route path='/register' component={Register}></Route>
                 <Route  component={Main}></Route>
