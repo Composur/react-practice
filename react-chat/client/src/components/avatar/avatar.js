@@ -30,7 +30,7 @@ class Avatar extends Component{
     }
     render(){
         const {icon}=this.state
-        const hasAvatar=(<div>已选择头像：<img src={icon}/></div>)
+        const hasAvatar=(<div>已选择头像：<img src={icon} alt='avatar'/></div>)
         const  AvatarMsg=icon?hasAvatar:'请选择头像'
         return(
            <List renderHeader={()=>AvatarMsg}>

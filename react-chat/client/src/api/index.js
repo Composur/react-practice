@@ -12,4 +12,5 @@ export const reqRegister=(data)=>{return axios('/register',data,'POST')}
 export const reqLogin=(data)=>{return axios('/login',data,'POST')}
 
 //  更新用户信息
-export const reqUpdateUser=(data)=>{return axios('/updateUser',data,'POST')}
+export const reqUpdateBoss=(data)=>{return axios('/bossUpdate',data,'POST')}
+

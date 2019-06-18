@@ -12,7 +12,9 @@ const options = {
     // If not connected, return errors immediately rather than waiting for reconnect
     bufferMaxEntries: 0,
     autoReconnect: true,
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useCreateIndex:true,
+    useFindAndModify:false,
 }
 
 //  mongoose.connect(uri, options, function(error) {     // Check error in

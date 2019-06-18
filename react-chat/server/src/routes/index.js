@@ -2,7 +2,17 @@ var express = require('express');
 var router = express.Router();
 const User=require('../models/user')
 const md5=require('blueimp-md5')
-const  filters={password:0,__v:0} //过滤返回前端属性
+const filters = { //过滤返回前端属性
+  password: 0,
+  __v: 0
+}
+const filtersByID={
+   "fields": {
+    password: 0,
+    __v: 0
+  },
+  "new": true
+}
 const {log,error}=console
 // 统一错误处理
 router.use(function(err, req, res, next) {
@@ -51,6 +61,7 @@ router.post('/register',function(req,res){
       }else{
         responseData.success=true
         responseData.message='注册成功'
+        responseData.payload=result
         res.json(responseData)
         return
       }
@@ -98,6 +109,7 @@ router.post('/login',function(req,res){
       return
 
     }else{
+      
       responseData.code=0
       responseData.message='用户名或密码错误'
       res.json(responseData)
@@ -106,6 +118,38 @@ router.post('/login',function(req,res){
 
   }).catch((err)=>{
     log(err)
+  })
+})
+
+
+
+router.post('/bossUpdate',function(req,res){
+  // get user_id
+  const _id=req.cookies.user_id
+  if(!_id){
+    responseData.message='请登录！'
+    res.json(responseData)
+    return
+  }
+  const {avatar,salary,info,post} =req.body
+  User.findByIdAndUpdate({_id:_id},{$set:req.body},filtersByID).then(data=>{
+    if (data) {
+
+      responseData.code = 1
+      responseData.success = true
+      responseData.message = '修改成功'
+      responseData.payload = data
+      res.json(responseData)
+      return
+
+    } else { // 如果是无效的cookie查不到数据
+
+      res.clearCookie()
+      responseData.message = '请登录！'
+      res.json(responseData)
+      return
+
+    }
   })
 })
 

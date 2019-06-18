@@ -11,11 +11,12 @@ class Boss extends Component{
         }
         this.backClick= this.backClick.bind(this)
         this.save=this.save.bind(this)
+        this.setAvatar=this.setAvatar.bind(this)
     }
     backClick(){
         alert('back')
     }
-    setAvatar=(name)=>{
+    setAvatar(name=''){
         this.setState({
             avatar:name
         })
@@ -26,9 +27,10 @@ class Boss extends Component{
         })
     }
     save(){
-        console.log(this.state)
+       this.props.boss(this.state) //把数据传递给action
     }
     render() {
+        console.log(this.props.bossInfo) //得到reducer的数据
        return(
         <div>
             <NavBar onLeftClick={this.backClick} mode="dark" leftContent="返回">智能CRM</NavBar>

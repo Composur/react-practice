@@ -4,7 +4,7 @@
  * 异步actions
  */
 
-import {reqRegister,reqLogin} from '../api'
+import {reqRegister,reqLogin,reqUpdateBoss} from '../api'
 import{AUTH_SUCCESS,ERROR_MSG} from './action-types'
 
 // 验证成功
@@ -19,7 +19,6 @@ const auth_false=(message)=>({type:ERROR_MSG,data:message})
 
 //  注册
 export const register = (data) => {
-
     // 拿到UI层的注册数据
     const {username,password,passwordAgain}=data
 
@@ -72,4 +71,22 @@ export const login = (data) => {
     }
 }
 
+
+// boss-info
+
+export const boss=(data)=>{
+    // const {post,company,salary,info,avatar}=data
+    // if(!avatar){
+    //     return auth_false('头像不能为空')
+    // }
+
+    console.log(data)
+    return async dispatch=>{
+        const res=await reqUpdateBoss(data)
+        const result=res.data
+        if(result.success){
+            dispatch(auth_success(result))
+        }
+    }
+}
  

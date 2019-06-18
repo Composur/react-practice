@@ -6,6 +6,9 @@
 import {combineReducers} from 'redux'
 import{AUTH_SUCCESS,ERROR_MSG} from './action-types'
 
+import {redirectTo} from '../utils'
+
+
 // actions
 
 
@@ -13,11 +16,10 @@ export function loginUserInfo(previousState = {}, action) { //管理user type=bo
    switch(action.type){
 
         case AUTH_SUCCESS:
-        debugger
-            return {...action.data,redirectTo:'/'}
+            const {type=undefined,avatar=undefined}=action.data.payload
+            return {...action.data,redirectTo:redirectTo(type,avatar)}
 
         case ERROR_MSG:
-        debugger
             return {...previousState,message:action.data}
 
         default:
@@ -28,5 +30,20 @@ export function loginUserInfo(previousState = {}, action) { //管理user type=bo
 }
 
 
+export function bossInfo(previousState={},action){
+    switch(action.type){
+
+        case AUTH_SUCCESS:
+            return {...action.data,redirectTo:'/'}
+
+        case ERROR_MSG:
+            return {...previousState,message:action.data}
+
+        default:
+        return previousState
+        
+   }
+}
+
 // 管理reduce
-export default combineReducers({loginUserInfo}) 
+export default combineReducers({loginUserInfo,bossInfo}) 
