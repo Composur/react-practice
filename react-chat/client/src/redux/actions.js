@@ -4,18 +4,20 @@
  * 异步actions
  */
 
-import {reqRegister,reqLogin,reqUpdateBoss} from '../api'
-import{AUTH_SUCCESS,ERROR_MSG} from './action-types'
+import {reqRegister,reqLogin,reqUpdateUser} from '../api'
+import{AUTH_SUCCESS,ERROR_MSG,RECEIVE_MSG,RECEIVE_ERR} from './action-types'
 
 // 验证成功
-const auth_success=(data)=>({
-        type:AUTH_SUCCESS,
-        data:data
-})
-
+const auth_success=(data)=>({type:AUTH_SUCCESS,data:data})
+        
 // 验证失败返回message
 const auth_false=(message)=>({type:ERROR_MSG,data:message})
 
+// 更新成功
+const update_success=data=>({type:RECEIVE_MSG,data:data})
+
+// 更新失败
+const update_err=message=>({type:RECEIVE_ERR,data:message})
 
 //  注册
 export const register = (data) => {
@@ -71,22 +73,21 @@ export const login = (data) => {
     }
 }
 
-
-// boss-info
-
-export const boss=(data)=>{
-    // const {post,company,salary,info,avatar}=data
-    // if(!avatar){
-    //     return auth_false('头像不能为空')
-    // }
-
-    console.log(data)
+// 用户信息更新
+export const userUpdate=(data)=>{
+    const {avatar}=data
+    if(!avatar){
+        return update_err('头像不能为空')
+    }
     return async dispatch=>{
-        const res=await reqUpdateBoss(data)
+        const res=await reqUpdateUser(data)
         const result=res.data
         if(result.success){
-            dispatch(auth_success(result))
+            dispatch(update_success(result))
+        }else{
+            dispatch(update_err(result.message || '更新失败！'))
         }
     }
 }
+
  

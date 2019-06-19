@@ -27,10 +27,10 @@ class Boss extends Component{
         })
     }
     save(){
-       this.props.boss(this.state) //把数据传递给action
+       this.props.userUpdate(this.state) //把数据传递给action
     }
     render() {
-        console.log(this.props.bossInfo) //得到reducer的数据
+        console.log(this.props.updateUserInfo) //得到reducer的数据
        return(
         <div>
             <NavBar onLeftClick={this.backClick} mode="dark" leftContent="返回">智能CRM</NavBar>

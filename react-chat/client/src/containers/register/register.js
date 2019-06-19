@@ -60,7 +60,7 @@ class Register extends Component {
                     <List>
                     <WhiteSpace />
                         <InputItem clear  onChange={val=>{this.handleChange('username',val)}} placeholder='请输入用户名'></InputItem>
-                        <span className='error-msg'>{message?message:null}</span>
+                        {message?<span className='error-msg'>{message}</span>:null}
                         <InputItem clear  type='password' onChange={val=>{this.handleChange('password',val)}} placeholder='请输入密码' ></InputItem>
                         <InputItem clear  type='password' onChange={val=>{this.handleChange('passwordAgain',val)}} placeholder='请再次输入密码'></InputItem>
                     </List>

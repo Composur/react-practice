@@ -12,7 +12,9 @@ module.exports = new Schema({
     post:{type:String},
     info:{type:String},
     company:{type:String},
-    salary:{type:String}
+    salary:{type:String},
+    position:{type:String},
+    personInfo:{type:String},
 })
 
 // 也可以这样增加 

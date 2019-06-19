@@ -1,3 +1,3 @@
-import Personal from "./personal";
+import Personal from "./container";
 
 export default Personal

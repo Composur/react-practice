@@ -4,12 +4,10 @@
  */
 
 import {combineReducers} from 'redux'
-import{AUTH_SUCCESS,ERROR_MSG} from './action-types'
+import{AUTH_SUCCESS,ERROR_MSG,RECEIVE_MSG, RECEIVE_ERR} from './action-types'
 
 import {redirectTo} from '../utils'
 
-
-// actions
 
 
 export function loginUserInfo(previousState = {}, action) { //管理user type=boss message err
@@ -30,13 +28,13 @@ export function loginUserInfo(previousState = {}, action) { //管理user type=bo
 }
 
 
-export function bossInfo(previousState={},action){
+export function updateUserInfo(previousState={},action){
     switch(action.type){
 
-        case AUTH_SUCCESS:
-            return {...action.data,redirectTo:'/'}
+        case RECEIVE_MSG:
+            return {...action.data}
 
-        case ERROR_MSG:
+        case RECEIVE_ERR:
             return {...previousState,message:action.data}
 
         default:
@@ -45,5 +43,6 @@ export function bossInfo(previousState={},action){
    }
 }
 
+
 // 管理reduce
-export default combineReducers({loginUserInfo,bossInfo}) 
+export default combineReducers({loginUserInfo,updateUserInfo}) 
