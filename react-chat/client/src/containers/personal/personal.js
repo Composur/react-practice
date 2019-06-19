@@ -1,5 +1,7 @@
 import React ,{Component}from 'react'
 import {NavBar,WingBlank,InputItem,WhiteSpace,Button,List,TextareaItem} from 'antd-mobile'
+import {Redirect} from 'react-router-dom'
+
 import Avatar from '../../components/avatar';
 
 
@@ -28,7 +30,14 @@ class Personal extends Component{
         this.props.userUpdate(this.state)
     }
     render(){
-        console.log(this.props.updateUserInfo)
+        const result=this.props.updateUserInfo  //得到reducer的数据
+        if(result&&result.success){ 
+            const {avatar,type}=result.payload
+            if(avatar){//判断信息是否完善
+                const path=type==='admin'?'/boss':'/normal'
+               return <Redirect to={path}/>
+            }
+        }
         return(
             <div>
             <NavBar onLeftClick={this.backClick} mode="dark" leftContent="返回">智能CRM</NavBar>

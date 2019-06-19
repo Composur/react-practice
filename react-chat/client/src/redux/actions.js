@@ -85,7 +85,7 @@ export const userUpdate=(data)=>{
         if(result.success){
             dispatch(update_success(result))
         }else{
-            dispatch(update_err(result.message || '更新失败！'))
+            dispatch(update_err(result || '更新失败！'))
         }
     }
 }

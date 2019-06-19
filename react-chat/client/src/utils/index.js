@@ -7,6 +7,12 @@ export const redirectTo=function(type,header){
         }else{
             path='/personInfo'
         }
+    }else{
+        if(type==='admin'){
+            path='/boss'
+        }else{
+            path='/person'
+        } 
     }
     return path
 }
