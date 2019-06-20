@@ -14,3 +14,5 @@ export const reqLogin=(data)=>{return axios('/login',data,'POST')}
 //  更新用户信息
 export const reqUpdateUser=(data)=>{return axios('/userUpdate',data,'POST')}
 
+// 查找用户ById
+export const reqUserInfo=(data)=>{return axios('/userInfo',data)}

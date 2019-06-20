@@ -62,15 +62,13 @@ router.post('/register',function(req,res){
         responseData.success=true
         responseData.message='注册成功'
         responseData.payload=result
-        res.cookie('user_id',result._id,{ maxAge:1000*60*60*24})
+        res.cookie('user_id',result._id,{ maxAge:1000*60*60*24}) //一天后过期
         res.json(responseData)
         return
       }
     })
   })
 })
-
-
 
 router.post('/login',function(req,res){
 
@@ -101,7 +99,6 @@ router.post('/login',function(req,res){
   })
 })
 
-
 // boss用户 信息更新
 router.post('/userUpdate',function(req,res){
   const _id=getCookie(req,res)
@@ -127,35 +124,29 @@ router.post('/userUpdate',function(req,res){
   })
 })
 
-
-// normal 用户信息更新
-
-router.post('/normalUpdate',function(req,res){
-
-  const _id=getCookie(req,res)
-
-  User.findByIdAndUpdate({_id:_id},req.body,filtersByID).then(data=>{
-
-    if (data) {
-      responseData.code = 1
-      responseData.success = true
-      responseData.message = '修改成功'
-      responseData.payload = data
-      res.json(responseData)
-      return
-
-    } else { // 如果是无效的cookie查不到数据
-
-      res.clearCookie()
-      responseData.message = '请登录！'
-      res.json(responseData)
-      return
-
-    }
-  })
-
+// 获取用户信息by_id
+router.get('/userInfo',function(req,res){
+  const  _id=req.cookies.user_id
+  if(_id){
+    User.findById({_id:_id}).then(data=>{
+      if(data){
+        responseData.code=0
+        responseData.success=true
+        responseData.payload=data
+        res.json(responseData)
+        return
+      }else{
+        responseData.message='查询失败！'
+        res.json(responseData)
+        return
+      }
+    })
+  }else{
+    responseData.message='请登录'
+    res.json(responseData)
+    return
+  }
 })
-
 
 function getCookie(req,res){
  // get user_id
