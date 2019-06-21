@@ -3,4 +3,4 @@ import {userInfo} from '../../redux/actions'
 
 import Main from './main'
 
-export default connect(state=>({loginUserInfo:state.loginUserInfo}),{userInfo})(Main)
+export default connect(state=>({loginUserInfo:state.loginUserInfo,updateUserInfo:state.updateUserInfo}),{userInfo})(Main)

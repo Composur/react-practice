@@ -5,7 +5,7 @@
  */
 
 import {reqRegister,reqLogin,reqUpdateUser,reqUserInfo} from '../api'
-import{AUTH_SUCCESS,ERROR_MSG,RECEIVE_MSG,RECEIVE_ERR,GET_USER_ERROR,GET_USER_SUCCESS} from './action-types'
+import{AUTH_SUCCESS,ERROR_MSG,RECEIVE_MSG,RECEIVE_ERR} from './action-types'
 
 // 验证成功
 const auth_success=(data)=>({type:AUTH_SUCCESS,data:data})
@@ -96,22 +96,17 @@ export const userUpdate=(data)=>{
 
 
 // 获取用户信息
-export const userInfo=data=>{
+export const userInfo=()=>{
+
         return async dispatch=>{
+
             const {data}=await reqUserInfo()
-            if(data.success){
-                // dispatch({
-                //     type:GET_USER_SUCCESS,
-                //     data:data
-                // })
+            if (data.success) {
                 dispatch(update_success(data))
-            }else{
-                // dispatch({
-                //     type:GET_USER_ERROR,
-                //     data:data
-                // })
+            } else {
                 dispatch(update_err(data || '更新失败！'))
             }
+
     }
 }
  

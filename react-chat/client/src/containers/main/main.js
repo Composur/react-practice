@@ -11,7 +11,7 @@ import {redirectTo} from '../../utils'
 
 const BoosMain = Loadable({
     loader: () => import('../bossMain'),
-    loading: Loading,
+    loading: Loading
   });
 
 
@@ -31,25 +31,39 @@ export default class Main extends Component{
     render(){
         // 检查用户是否登录
         const userId=Cookies.get('user_id')
+
         if(!userId){ //未登录
+
             return <Redirect to='/login'></Redirect>
+
         }else{ //已登录，获取redux中的数据
-            const {payload={}}=this.props.loginUserInfo
-            // const {payload={}}=this.props.updateUserInfo
+
+            console.log(this.props)
+
+            let payload = {}
+
+            if (this.props.loginUserInfo.payload) {
+                payload = this.props.loginUserInfo.payload
+            } else if (this.props.updateUserInfo.payload) {
+                payload = this.props.updateUserInfo.payload
+            }
+           
             console.log(payload)
+
             if(!payload._id){ //已登录但又未登录
-                const {payload}=this.props
-                console.log(payload)
+
                 console.log('已登录但又未登录')
-                // console.log(this.props.userInfo())
                 return null
+
             }else{
+
                 let path=this.props.location.pathname
                 if(path==='/'){
                     const {type,avatar}=payload
                     path=redirectTo(type,avatar)
                     console.log(path)
                     return <Redirect to={path}/>
+
                 }
             }
            
