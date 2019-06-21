@@ -1,4 +1,4 @@
 import PersonMain from "./personalMain";
 import { connect } from 'react-redux';
 
-export default  connect(state=>({},{}))(PersonMain)
+export default  connect(state=>({}),{})(PersonMain)
