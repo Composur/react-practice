@@ -19,19 +19,19 @@ import Loading  from '../../components/loading'
 
 import {redirectTo} from '../../utils'
 import { NavBar } from 'antd-mobile';
-
+import NavFooter from '../../components/nav-footer/navFooter';
 
 
 const BoosMain = Loadable({ //按需加载
     loader: () => import('../bossMain'),
     loading: Loading
   });
-
+ 
 
 export default class Main extends Component{
     // 加上static是给对象内添加属性，不加是给组件对象添加属性
     navList=[ //导航tab
-        {path:'/boss',title:'admin',icon:'laobao',component:PersonMain},
+        {path:'/boss',title:'admin',icon:'laoban',component:PersonMain},
         {path:'/personal',title:'personal',icon:'dashen',component:BoosMain},
         {path:'/message',title:'消息',icon:'message',component:Message},
         {path:'/user',title:'个人中心',icon:'personal',component:User},
@@ -41,7 +41,6 @@ export default class Main extends Component{
         const userId=Cookies.get('user_id')
         const {payload={}}=this.props.loginUserInfo
         if (userId && !payload._id) {
-            console.log('getUserInfo')
             this.props.userInfo()
         }
     }
@@ -50,16 +49,12 @@ export default class Main extends Component{
     render(){
         // 检查用户是否登录
         const userId=Cookies.get('user_id')
-
+        let payload = {}
         if(!userId){ //未登录
 
             return <Redirect to='/login'></Redirect>
 
         }else{ //已登录，获取redux中的数据
-
-            console.log(this.props)
-
-            let payload = {}
 
             if (this.props.loginUserInfo.payload) {
                 payload = this.props.loginUserInfo.payload
@@ -67,8 +62,6 @@ export default class Main extends Component{
                 payload = this.props.updateUserInfo.payload
             }
            
-            console.log(payload)
-
             if(!payload._id){ //已登录但又未登录
 
                 console.log('已登录但又未登录')
@@ -80,26 +73,38 @@ export default class Main extends Component{
                 if(path==='/'){
                     const {type,avatar}=payload
                     path=redirectTo(type,avatar)
-                    console.log(path)
                     return <Redirect to={path}/>
-
                 }
             }
            
         }
         // 子路由导航
         const {navList}=this
-        const path=this.props.location.pathname
-        const nav=navList.find(val=>val.path===path)
+        const currentPath=this.props.location.pathname
+        const currentNav=navList.find(val=>{
+            return val.path===currentPath
+        })
+        if(currentNav){
+            if(payload.type==='admin'){
+                navList[1].hide=true
+            }else{
+                navList[0].hide=true
+            }
+        }
         return(
             <div>
-                {nav?<NavBar>{nav.title}</NavBar>:null}
+                {currentNav?<NavBar>{currentNav.title}</NavBar>:null}
                <Switch> {/* 等于说是main路由下的路由 */}
                 <Route path='/bossInfo' component={Boss}></Route>
                 <Route path='/personInfo' component={Personal}></Route>
-                <Route path={`/${nav.path}`} component={nav.component}></Route>
                 <Route path='/notFound' component={notFound}></Route>
+                {
+                    navList.map((item,index)=>{
+                     return   <Route path={item.path} component={item.component} key={index}></Route>
+                    })
+                }
                </Switch>
+                <NavFooter navList={this.navList}></NavFooter>
             </div>
         )
     }
