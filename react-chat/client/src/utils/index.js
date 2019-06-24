@@ -1,3 +1,5 @@
+import Cookies from 'js-cookie'
+
 export const redirectTo=function(type,header){
     let path='/'
 
@@ -15,4 +17,12 @@ export const redirectTo=function(type,header){
         } 
     }
     return path
+}
+
+export const getCookie=function(cookieName='user_id'){
+    return Cookies.get(cookieName)
+}
+export const clearCookie=function(cookieName='user_id'){
+     Cookies.remove(cookieName)
+     return
 }

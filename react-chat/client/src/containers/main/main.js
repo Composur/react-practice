@@ -2,7 +2,6 @@ import React ,{Component}from 'react'
 
 import {Switch,Route,Redirect} from 'react-router-dom'
 import Loadable from 'react-loadable';
-import Cookies from 'js-cookie'
 
 import Boss from '../boss/'
 import Personal from '../personal';
@@ -17,7 +16,7 @@ import User from '../userSetting';
 import notFound from '../../components/error'
 import Loading  from '../../components/loading'
 
-import {redirectTo} from '../../utils'
+import {redirectTo,getCookie} from '../../utils'
 import { NavBar } from 'antd-mobile';
 import NavFooter from '../../components/nav-footer';
 
@@ -38,7 +37,7 @@ export default class Main extends Component{
     ]
     // 有cookie但是redux中没有登录信息，需要请求一下当前cookie的用户信息
     componentDidMount(){
-        const userId=Cookies.get('user_id')
+        const userId=getCookie('user_id')
         const {payload={}}=this.props.loginUserInfo
         if (userId && !payload._id) {
             this.props.userInfo()
@@ -48,7 +47,7 @@ export default class Main extends Component{
   
     render(){
         // 检查用户是否登录
-        const userId=Cookies.get('user_id')
+        const userId=getCookie('user_id')
         const { payload={} } = this.props.loginUserInfo || this.props.updateUserInfo
         
         if(!userId){ //未登录去登录

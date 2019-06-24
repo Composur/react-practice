@@ -10,16 +10,11 @@ export default class navFooter extends Component {
         navList:PropTypes.array.isRequired
     }
     state = {  }
-    constructor(props){
-        super(props)
-        console.log(this.props.navList)
-    }
     render() {
         const {navList}=this.props
         const navListFilter=navList.filter((val)=>{
             return !val.hide
         })
-        console.log(this.props)
         // const path=this.props.location.pathname  路由组件才有
         // 问题：非路由组件使用路由的API
         // 解决：使用withRouter包装后暴露出去
