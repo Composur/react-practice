@@ -6,14 +6,18 @@ const {Item}=List
 const {Brief}=Item
 export default class User extends Component {
     state = {  }
-    singOut=()=>{
+    constructor(){
+        super()
+        this.singOut=this.singOut.bind(this)
+    }
+    singOut(){
         console.log(getCookie('user_id'))
         clearCookie('user_id')
-        console.log(this.props)
+        // console.log(this.props)
      
     }
     render() {
-        const {payload={}}=this.props.updateUserInfo || this.props.loginUserInfo
+        const {payload={}}=this.props.loginUserInfo
         console.log(payload)
         // const icon=require(`../../assets/images/${payload.avatar}.png`)
         return (

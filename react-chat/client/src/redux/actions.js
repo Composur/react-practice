@@ -102,7 +102,7 @@ export const userInfo=()=>{
 
             const {data}=await reqUserInfo()
             if (data.success) {
-                dispatch(update_success(data))
+                dispatch(auth_success(data))
             } else {
                 dispatch(update_err(data || '更新失败！'))
             }
