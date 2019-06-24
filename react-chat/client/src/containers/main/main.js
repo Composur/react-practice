@@ -19,7 +19,7 @@ import Loading  from '../../components/loading'
 
 import {redirectTo} from '../../utils'
 import { NavBar } from 'antd-mobile';
-import NavFooter from '../../components/nav-footer/navFooter';
+import NavFooter from '../../components/nav-footer';
 
 
 const BoosMain = Loadable({ //按需加载
@@ -49,26 +49,12 @@ export default class Main extends Component{
     render(){
         // 检查用户是否登录
         const userId=Cookies.get('user_id')
-        let payload = {}
-        if(!userId){ //未登录
-
-            return <Redirect to='/login'></Redirect>
-
-        }else{ //已登录，获取redux中的数据
-
-            if (this.props.loginUserInfo.payload) {
-                payload = this.props.loginUserInfo.payload
-            } else if (this.props.updateUserInfo.payload) {
-                payload = this.props.updateUserInfo.payload
-            }
-           
-            if(!payload._id){ //已登录但又未登录
-
-                console.log('已登录但又未登录')
-                return null
-
-            }else{
-
+        const { payload={} } = this.props.loginUserInfo || this.props.updateUserInfo
+        
+        if(!userId){ //未登录去登录
+            return <Redirect to='/login'/>
+        }else{ 
+            if(payload._id){ //已登录，获取redux中的数据
                 let path=this.props.location.pathname
                 if(path==='/'){
                     const {type,avatar}=payload
@@ -76,21 +62,24 @@ export default class Main extends Component{
                     return <Redirect to={path}/>
                 }
             }
-           
         }
+
         // 子路由导航
         const {navList}=this
         const currentPath=this.props.location.pathname
-        const currentNav=navList.find(val=>{
-            return val.path===currentPath
+
+        const currentNav = navList.find(val => {
+            return val.path === currentPath
         })
-        if(currentNav){
-            if(payload.type==='admin'){
-                navList[1].hide=true
-            }else{
-                navList[0].hide=true
+
+        if (currentNav) {
+            if (payload.type === 'admin') {
+                navList[1].hide = true
+            } else {
+                navList[0].hide = true
             }
         }
+        
         return(
             <div>
                 {currentNav?<NavBar>{currentNav.title}</NavBar>:null}
@@ -104,7 +93,7 @@ export default class Main extends Component{
                     })
                 }
                </Switch>
-                <NavFooter navList={this.navList}></NavFooter>
+               {currentNav?<NavFooter navList={this.navList}></NavFooter>:null}
             </div>
         )
     }

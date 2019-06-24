@@ -34,7 +34,7 @@ class Personal extends Component{
         if(result&&result.success){ 
             const {avatar,type}=result.payload
             if(avatar){//判断信息是否完善
-                const path=type==='admin'?'/boss':'/normal'
+                const path=type==='admin'?'/boss':'/personal'
                return <Redirect to={path}/>
             }
         }

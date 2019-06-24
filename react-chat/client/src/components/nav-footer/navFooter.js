@@ -32,7 +32,7 @@ export default class navFooter extends Component {
                       return(
                         <Item title={val.title} key={val.path} icon={{uri:require(`./images/${val.icon}.png`)}}
                          selectedIcon={{uri:require(`./images/${val.icon}-selected.png`)}} selected={true}
-                         onPress={()=>this.props.history.replace(val.path)}
+                         onPress={()=> this.props.history.replace(val.path)}
                          
                          >
                         </Item>

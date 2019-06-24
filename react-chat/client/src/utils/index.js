@@ -11,7 +11,7 @@ export const redirectTo=function(type,header){
         if(type==='admin'){
             path='/boss'
         }else{
-            path='/person'
+            path='/personal'
         } 
     }
     return path
