@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { NavBar, Icon, WingBlank, WhiteSpace, List, InputItem,Radio,Button} from 'antd-mobile';
+import { NavBar, Icon, WingBlank, WhiteSpace, List, InputItem,Radio,Button,Toast} from 'antd-mobile';
 
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
@@ -29,7 +29,6 @@ class Register extends Component {
     }
     registerHandle(){
         this.props.register(this.state)
-        // Toast.fail(this.props.loginUserInfo.message, 1);
     }
     toLogin(){
         this.props.history.replace('/login')
@@ -42,6 +41,12 @@ class Register extends Component {
         const {message,redirectTo}=this.props.loginUserInfo
         if(redirectTo){
           return   <Redirect to={redirectTo}/>
+        }
+        const errorToast=(message)=>{
+            Toast.info(message+'!!!', 1);
+        }
+        if(message){
+            errorToast(message)
         }
         return (
             <div className='border'>
@@ -60,7 +65,6 @@ class Register extends Component {
                     <List>
                     <WhiteSpace />
                         <InputItem clear  onChange={val=>{this.handleChange('username',val)}} placeholder='请输入用户名'></InputItem>
-                        {message?<span className='error-msg'>{message}</span>:null}
                         <InputItem clear  type='password' onChange={val=>{this.handleChange('password',val)}} placeholder='请输入密码' ></InputItem>
                         <InputItem clear  type='password' onChange={val=>{this.handleChange('passwordAgain',val)}} placeholder='请再次输入密码'></InputItem>
                     </List>

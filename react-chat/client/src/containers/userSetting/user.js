@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Result, List, WhiteSpace,Button } from 'antd-mobile';
+import { Result, List, WhiteSpace,Button,Modal,Toast } from 'antd-mobile';
 import './user.less'
-import { getCookie,clearCookie } from '../../utils';
+import {clearCookie } from '../../utils';
 const {Item}=List
 const {Brief}=Item
+const {alert}=Modal
 export default class User extends Component {
     state = {  }
     constructor(){
@@ -11,15 +12,18 @@ export default class User extends Component {
         this.singOut=this.singOut.bind(this)
     }
     singOut(){
-        console.log(getCookie('user_id'))
-        clearCookie('user_id')
-        // console.log(this.props)
-     
+        alert('确定退出？', '', [
+            { text: '取消', onPress: () => console.log('cancel') },
+            { text: '确定', onPress: () => {
+                clearCookie('user_id')
+                this.props.userInfo()
+            } },
+          ])
+       
     }
     render() {
         const {payload={}}=this.props.loginUserInfo
         console.log(payload)
-        // const icon=require(`../../assets/images/${payload.avatar}.png`)
         return (
             <div>
                 <Result

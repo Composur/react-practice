@@ -18,7 +18,7 @@ export function loginUserInfo(previousState = {}, action) { //管理user type=bo
             return {...action.data,redirectTo:redirectTo(type,avatar)}
 
         case ERROR_MSG:
-            return {...previousState,message:action.data}
+            return {message:action.data}
 
         default:
         return previousState
@@ -35,7 +35,7 @@ export function updateUserInfo(previousState={},action){
             return {...action.data}
 
         case RECEIVE_ERR:
-            return {...previousState,message:action.data}
+            return {...previousState,...action.data}
 
         default:
         return previousState
@@ -56,6 +56,15 @@ export function userInfo(previousState={},action){
         return previousState
     }
 }
+// 重置用户信息
+
+export function userInfoReset(previousState={},action){
+    return previousState
+}
+
+
+
+
 
 // 管理reduce
 export default combineReducers({loginUserInfo,updateUserInfo,userInfo}) 

@@ -46,7 +46,7 @@ export const register = (data) => {
         if (result.success) {
            dispatch(auth_success(result))
         }else{
-           dispatch(auth_false(result.message))
+           dispatch(auth_false(result))
         }   
     }
 }
@@ -104,9 +104,12 @@ export const userInfo=()=>{
             if (data.success) {
                 dispatch(auth_success(data))
             } else {
-                dispatch(update_err(data || '更新失败！'))
+                dispatch(auth_false(data || '更新失败！'))
             }
 
     }
 }
+
+
+
  
