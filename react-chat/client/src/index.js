@@ -11,6 +11,7 @@ import Login from './containers/login'
 import Register from './containers/register'
 import Main from './containers/main'
 import './assets/style/index.less'
+import './socketIo/socketio-test'
 FastClick.attach(document.body); //解决点击延迟300ms 
 
 

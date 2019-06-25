@@ -16,7 +16,6 @@ export default function (url, data = {}, type = 'GET') {
         if(paramStr) {
             paramStr = paramStr.substring(0, paramStr.length-1)
           }
-        console.log(paramStr)
         return axios.get(BaseURL + '?', paramStr)
 
     } else {

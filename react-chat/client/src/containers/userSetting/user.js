@@ -27,7 +27,6 @@ export default class User extends Component {
             marginBottom:'50px'
         }
         const {payload={}}=this.props.loginUserInfo
-        console.log(payload)
         return (
             <div style={settingStyle}>
                 <Result
