@@ -1,16 +1,15 @@
 import React,{Component} from 'react'
-
+import UserList from '../../components/user-list'
 export default class PersonMain extends Component{
-    constructor(){
-        super()
-        this.state={}
+    componentDidMount(){
+        this.props.userList({type:'normal'})
     }
     render() {
+        const {payload=[]}=this.props.userListInfo
         return (
             <div>
-                <h1>PersonMain</h1>
+               <UserList userListInfo={payload}></UserList>
             </div>
         );
     }
-
 }

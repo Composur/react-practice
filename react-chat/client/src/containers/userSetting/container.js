@@ -7,5 +7,5 @@ export default  connect(state=>{
         updateUserInfo:state.updateUserInfo,
         loginUserInfo:state.loginUserInfo
     }
-   
+    
 }, {userInfo})(withRouter(User))

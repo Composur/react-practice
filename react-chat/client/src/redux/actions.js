@@ -4,8 +4,8 @@
  * 异步actions
  */
 
-import {reqRegister,reqLogin,reqUpdateUser,reqUserInfo} from '../api'
-import{AUTH_SUCCESS,ERROR_MSG,RECEIVE_MSG,RECEIVE_ERR} from './action-types'
+import {reqRegister,reqLogin,reqUpdateUser,reqUserInfo,reqUserList} from '../api'
+import{AUTH_SUCCESS,ERROR_MSG,RECEIVE_MSG,RECEIVE_ERR,GET_USER_LIST} from './action-types'
 
 // 验证成功
 const auth_success=(data)=>({type:AUTH_SUCCESS,data:data})
@@ -17,9 +17,9 @@ const auth_false=(message)=>({type:ERROR_MSG,data:message})
 const update_success=data=>({type:RECEIVE_MSG,data:data})
 
 // 更新失败
-const update_err=message=>({type:RECEIVE_ERR,data:message})
+export const update_err=message=>({type:RECEIVE_ERR,data:message})
 
-
+const get_user_list=(userList)=>({type:GET_USER_LIST,data:userList})
 
 
 
@@ -94,7 +94,6 @@ export const userUpdate=(data)=>{
     }
 }
 
-
 // 获取用户信息
 export const userInfo=()=>{
 
@@ -110,6 +109,15 @@ export const userInfo=()=>{
     }
 }
 
+// 获取用户列表
+export const userList=(type)=>{
+    return async dispatch=>{
+        const {data} = await reqUserList(type)
+        if(data.success){
+            dispatch(get_user_list(data))
+        }
+    }
+}
 
 
  

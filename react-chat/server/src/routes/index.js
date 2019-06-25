@@ -148,6 +148,26 @@ router.get('/userInfo',function(req,res){
   }
 })
 
+// 获取用户列表
+router.post('/userList',function(req,res){
+  const {type}=req.body
+  console.log(type)
+  User.find({type},filters).then((data,error)=>{
+    if(data){
+      responseData.code=1
+      responseData.success=true
+      responseData.payload=data
+      res.json(responseData)
+      return
+    }else{
+      responseData.message=error
+      res.json(responseData)
+      return
+    }
+  })
+})
+
+
 function getCookie(req,res){
  // get user_id
  const _id=req.cookies.user_id

@@ -19,7 +19,7 @@ import Loading  from '../../components/loading'
 import {redirectTo,getCookie} from '../../utils'
 import { NavBar } from 'antd-mobile';
 import NavFooter from '../../components/nav-footer';
-
+import './main.css'
 
 const BoosMain = Loadable({ //按需加载
     loader: () => import('../bossMain'),

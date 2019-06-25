@@ -16,3 +16,6 @@ export const reqUpdateUser=(data)=>{return axios('/userUpdate',data,'POST')}
 
 // 查找用户ById
 export const reqUserInfo=(data)=>{return axios('/userInfo',data)}
+
+// 获取用户列表
+export const reqUserList=(data)=>{return axios('/userList',data,'POST')}
