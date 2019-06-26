@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-const User=require('../models/user')
+const User=require('../models/user') //model应该放control文件夹去处理，这里内容少就写这里了
+const Chat=require('../models/chat')
 const md5=require('blueimp-md5')
 const filters = { //过滤返回前端属性
   password: 0,
@@ -30,11 +31,6 @@ router.use(function (req, res, next) {
     }
     next();
 });
-
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
 
 /**
  * 1.获取请求参数
@@ -167,6 +163,43 @@ router.post('/userList',function(req,res){
   })
 })
 
+// 获取用户消息列表
+router.get('/msgList',function(req,res){
+  const user_id=getCookie(req,res)
+  if(user_id){
+    User.find().then(data=>{ //查询所有用户
+      const user={}
+      if(data){
+        data.forEach(val=>{
+          user[val._id]={username:val.username,avatar:val.avatar} //消息列表需要显示的头像和用户名
+        })
+      }
+      // 得到用户列表后，查询每个用户的聊天记录
+      Chat.find({$or:[{from:user_id},{to:user_id}]},filters).then(data=>{ //查询发出和收到的消息
+        if(data){
+          responseData.success=true
+          responseData.payload=Object.assign({},user,{chatMsgs:data})
+          res.json(responseData)
+          return
+        }
+      })
+    })
+  }
+})
+
+// 获取消息的数量（已读or未读）
+router.post('/msgNums',function(req,res){
+  const {from}=req.body //发送方的ID
+  const to=getCookie(req,res)
+  Chat.update({from,to,read:false},{read:true},{multi:true}).then(data=>{
+    if(data){
+      responseData.success=true
+      responseData.payload=data
+      res.json(responseData)
+      return
+    }
+  })
+})
 
 function getCookie(req,res){
  // get user_id
