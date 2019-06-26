@@ -1,3 +1,3 @@
 import UserList from "./userList";
-
-export default  UserList
+import {withRouter} from 'react-router-dom'
+export default  withRouter(UserList)

@@ -1,0 +1,69 @@
+.container {
+  margin-top: 50px;
+}
+.chat-wrap,
+.chat-wrap-right {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.chat-wrap .avatar,
+.chat-wrap-right .avatar {
+  width: 35px;
+  margin: 0 4px;
+}
+.chat-wrap .avatar img,
+.chat-wrap-right .avatar img {
+  width: 100%;
+  height: 100%;
+}
+.chat-wrap .message,
+.chat-wrap-right .message {
+  position: relative;
+  padding: 0.5rem;
+  font-size: 14px;
+  background: #fff;
+  color: #000;
+}
+.chat-wrap .message:before,
+.chat-wrap-right .message:before {
+  position: absolute;
+  content: '';
+  width: 0;
+  height: 0;
+  left: -4px;
+  border-top: 3px solid transparent;
+  border-right: 5px solid #fff;
+  border-bottom: 3px solid transparent;
+}
+.chat-wrap-right {
+  justify-content: flex-end;
+}
+.chat-wrap-right .avatar {
+  margin-left: 4px;
+}
+.chat-wrap-right .message:before {
+  left: auto;
+  right: -4px;
+  transform: rotate(180deg);
+}
+.chat-footer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+}
+.chat-footer .am-list-item {
+  min-height: 30px;
+}
+.chat-footer .am-list-item.am-input-item {
+  height: 30px;
+}
+.chat-footer .input-text .am-list-item .am-input-control input {
+  font-size: 14px;
+}
+.chat-footer .send-btn {
+  color: #000;
+}

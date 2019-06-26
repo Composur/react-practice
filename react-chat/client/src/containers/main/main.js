@@ -3,15 +3,18 @@ import React ,{Component}from 'react'
 import {Switch,Route,Redirect} from 'react-router-dom'
 import Loadable from 'react-loadable';
 
+// 用户信息界面
 import Boss from '../boss/'
 import Personal from '../personal';
 
+// main界面
 // import BossMain from '../bossMain'; 
 import PersonMain from '../personMain';
-
 import Message from '../message' 
 import User from '../userSetting'; 
 
+// 聊天界面
+import Chat from '../chat'
 
 import notFound from '../../components/error'
 import Loading  from '../../components/loading'
@@ -71,7 +74,7 @@ export default class Main extends Component{
             return val.path === currentPath
         })
 
-        if (currentNav) {
+        if (currentNav) { //切换要显示的footer项
             if (payload.type === 'admin') {
                 navList[1].hide = true
             } else {
@@ -86,6 +89,7 @@ export default class Main extends Component{
                 <Route path='/bossInfo' component={Boss}></Route>
                 <Route path='/personInfo' component={Personal}></Route>
                 <Route path='/notFound' component={notFound}></Route>
+                <Route path='/chat/:userid' component={Chat}></Route>
                 {
                     navList.map((item,index)=>{
                      return   <Route path={item.path} component={item.component} key={index}></Route>

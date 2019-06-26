@@ -201,16 +201,19 @@ router.post('/msgNums',function(req,res){
   })
 })
 
-function getCookie(req,res){
- // get user_id
- const _id=req.cookies.user_id
- if(!_id){
-   responseData.message='请登录！'
-   res.json(responseData)
-   return
- }else{
-   return _id
- }
+
+
+
+function getCookie(req, res) {
+  // get user_id
+  const _id = req.cookies.user_id
+  if (!_id) {
+    responseData.message = '请登录！'
+    res.json(responseData)
+    return
+  } else {
+    return _id
+  }
 }
 
 module.exports = router;

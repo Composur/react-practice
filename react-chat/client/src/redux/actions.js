@@ -3,9 +3,11 @@
  * 同步actions
  * 异步actions
  */
-
+import io from 'socket.io-client'
+import {socketUrl} from '../config/config.default'
 import {reqRegister,reqLogin,reqUpdateUser,reqUserInfo,reqUserList} from '../api'
 import{AUTH_SUCCESS,ERROR_MSG,RECEIVE_MSG,RECEIVE_ERR,GET_USER_LIST} from './action-types'
+let socket=null
 
 // 验证成功
 const auth_success=(data)=>({type:AUTH_SUCCESS,data:data})
@@ -112,6 +114,7 @@ export const userInfo=()=>{
 // 获取用户列表
 export const userList=(type)=>{
     return async dispatch=>{
+        console.log(type)
         const {data} = await reqUserList(type)
         if(data.success){
             dispatch(get_user_list(data))
@@ -119,5 +122,23 @@ export const userList=(type)=>{
     }
 }
 
+function initIO(){
+  // if(!io.socket){
+  //   io.socket=io(socketUrl)
+  // }
+  if(!socket){
+    socket=io(socketUrl)
+  }
+  return socket
+}
+// 获取消息列表
+export const getMsgList=(parms)=>{
+    if(parms){
+        return  dispatch=>{
+        const socket = initIO()
+        console.log(socket)
+        }
+    }
+}
 
  

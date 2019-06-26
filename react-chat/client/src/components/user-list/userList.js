@@ -10,7 +10,6 @@ export default class UserList extends Component {
     }
     render() {
         const {userListInfo}=this.props
-        console.log(userListInfo)
         return (
           <div className='user-list'>
           {
@@ -18,7 +17,7 @@ export default class UserList extends Component {
               return(
                 <WingBlank size="lg" key={val._id}>
                 <WhiteSpace size="lg" />
-                <Card>
+                <Card onClick={()=>this.props.history.push(`/chat/${val._id}`)}>
                   <Card.Header
                     title={val.username}
                     thumb={require(`../../assets/images/${val.avatar || '头像2'}.png`)}

@@ -19,3 +19,6 @@ export const reqUserInfo=(data)=>{return axios('/userInfo',data)}
 
 // 获取用户列表
 export const reqUserList=(data)=>{return axios('/userList',data,'POST')}
+
+// 获取用户消息列表
+export const reqMsgList=(data)=>{return axios('/msgList',data)}
