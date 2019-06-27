@@ -48,6 +48,9 @@
   right: -4px;
   transform: rotate(180deg);
 }
+.chat-body {
+  margin-bottom: 30px;
+}
 .chat-footer {
   display: flex;
   justify-content: flex-start;

@@ -5,8 +5,8 @@
  */
 import io from 'socket.io-client'
 import {socketUrl} from '../config/config.default'
-import {reqRegister,reqLogin,reqUpdateUser,reqUserInfo,reqUserList} from '../api'
-import{AUTH_SUCCESS,ERROR_MSG,RECEIVE_MSG,RECEIVE_ERR,GET_USER_LIST} from './action-types'
+import {reqRegister,reqLogin,reqUpdateUser,reqUserInfo,reqUserList,reqMsgList} from '../api'
+import{AUTH_SUCCESS,ERROR_MSG,RECEIVE_MSG,RECEIVE_ERR,GET_USER_LIST,GET_MSG_LIST,GET_MSG} from './action-types'
 let socket=null
 
 // 验证成功
@@ -21,8 +21,11 @@ const update_success=data=>({type:RECEIVE_MSG,data:data})
 // 更新失败
 export const update_err=message=>({type:RECEIVE_ERR,data:message})
 
+// 得到用户列表
 const get_user_list=(userList)=>({type:GET_USER_LIST,data:userList})
 
+// 得到消息列表
+const get_msg_list=({user,chatMsgs})=>({type:GET_MSG_LIST,data:{user,chatMsgs}})
 
 
 //  注册
@@ -47,6 +50,7 @@ export const register = (data) => {
         //  拿到数据后无论成功或失败要去分发同步的action
         if (result.success) {
            dispatch(auth_success(result))
+           getUserMsgsList(dispatch)
         }else{
            dispatch(auth_false(result))
         }   
@@ -73,6 +77,7 @@ export const login = (data) => {
         //  拿到数据后无论成功或失败要去分发同步的action
         if(result.success){
            dispatch(auth_success(result))
+           getUserMsgsList(dispatch)
         }else{
            dispatch(auth_false(result.message))
         }
@@ -103,6 +108,7 @@ export const userInfo=()=>{
 
             const {data}=await reqUserInfo()
             if (data.success) {
+              getUserMsgsList(dispatch)
                 dispatch(auth_success(data))
             } else {
                 dispatch(auth_false(data || '更新失败！'))
@@ -114,14 +120,32 @@ export const userInfo=()=>{
 // 获取用户列表
 export const userList=(type)=>{
     return async dispatch=>{
-        console.log(type)
         const {data} = await reqUserList(type)
         if(data.success){
-            dispatch(get_user_list(data))
+          getUserMsgsList(dispatch)
+          dispatch(get_user_list(data))
         }
     }
 }
 
+
+// 获取消息列表
+export const getMsgList=(parms)=>{
+  if(parms){
+    return  dispatch=>{
+      socket.on('sendClientMsg',function(data){ //浏览器监听接收服务器发来的消息，前后端消息名称要一致
+          console.log('浏览器收到',data)
+          getUserMsgsList(dispatch)
+      })
+      socket.emit('sendMsg',parms,function(data){ //浏览器向服务器发送消息
+          console.log('浏览器发送',data)
+      })
+    }
+  }
+}
+
+ 
+// 初始化socket连接
 function initIO(){
   // if(!io.socket){
   //   io.socket=io(socketUrl)
@@ -131,14 +155,13 @@ function initIO(){
   }
   return socket
 }
-// 获取消息列表
-export const getMsgList=(parms)=>{
-    if(parms){
-        return  dispatch=>{
-        const socket = initIO()
-        console.log(socket)
-        }
-    }
-}
 
- 
+// 在登录、注册、获取用户列表阶段、获取用户消息列表
+async function getUserMsgsList(dispatch) { 
+    initIO()
+    const {data} = await reqMsgList()
+    if(data.success){
+      const {user,chatMsgs}=data.payload
+      dispatch(get_msg_list({user,chatMsgs}))
+    }
+ }

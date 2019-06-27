@@ -178,7 +178,7 @@ router.get('/msgList',function(req,res){
       Chat.find({$or:[{from:user_id},{to:user_id}]},filters).then(data=>{ //查询发出和收到的消息
         if(data){
           responseData.success=true
-          responseData.payload=Object.assign({},user,{chatMsgs:data})
+          responseData.payload=Object.assign({},{user},{chatMsgs:data})
           res.json(responseData)
           return
         }

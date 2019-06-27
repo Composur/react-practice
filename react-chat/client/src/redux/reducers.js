@@ -4,7 +4,7 @@
  */
 
 import {combineReducers} from 'redux'
-import{AUTH_SUCCESS,ERROR_MSG,RECEIVE_MSG, RECEIVE_ERR,GET_USER_LIST} from './action-types'
+import{AUTH_SUCCESS,ERROR_MSG,RECEIVE_MSG, RECEIVE_ERR,GET_USER_LIST,GET_MSG_LIST,GET_MSG} from './action-types'
 
 import {redirectTo} from '../utils'
 
@@ -33,8 +33,6 @@ export function loginUserInfo(previousState = {}, action) { //管理user type=bo
     
 }
 
-
-
 // 用户列表
 export function userListInfo(previousState={},action){
     switch(action.type){
@@ -53,5 +51,24 @@ export function updateUserInfo(previousState={},action){
    }
 }
 
+// 用户消息列表
+
+const userMsgList={
+    user:{},//用户消息列表
+    chatMsgs:[],//聊天记录
+    unReadCount:0 //未读消息数量
+}
+
+export function msgsList(previousState=userMsgList,action){
+    switch(action.type){
+        case GET_MSG_LIST:
+        return {...previousState,...action.data}
+        case GET_MSG:
+        return
+        default:
+        return previousState
+    }
+}
+
 // 管理reduce
-export default combineReducers({loginUserInfo,updateUserInfo,userListInfo}) 
+export default combineReducers({loginUserInfo,updateUserInfo,userListInfo,msgsList}) 

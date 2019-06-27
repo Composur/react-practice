@@ -21,4 +21,7 @@ export const reqUserInfo=(data)=>{return axios('/userInfo',data)}
 export const reqUserList=(data)=>{return axios('/userList',data,'POST')}
 
 // 获取用户消息列表
-export const reqMsgList=(data)=>{return axios('/msgList',data)}
+export const reqMsgList=()=>{return axios('/msgList')}
+
+// 获取用户已读消息
+export const reqReadMsg=(id)=>{return axios('/msgNums',id,'POST')}

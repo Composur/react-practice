@@ -10,5 +10,5 @@ module.exports = new Schema({
     chat_id: {type:String,required:true}, //from的ID发送给to的ID，组成的字符串
     content: {type:String,required:true},
     read: {type:Boolean,required:false},
-    create_time: {type:Number ,required:true},
+    create_time: {type:String ,required:true},
 })
