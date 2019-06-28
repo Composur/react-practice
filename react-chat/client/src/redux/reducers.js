@@ -63,8 +63,12 @@ export function msgsList(previousState=userMsgList,action){
     switch(action.type){
         case GET_MSG_LIST:
         return {...previousState,...action.data}
-        case GET_MSG:
-        return
+        case GET_MSG: 
+        return {
+            user:previousState.user,
+            chatMsgs:[...previousState.chatMsgs,action.data], //当前的聊天记录
+            unReadCount:0
+        }
         default:
         return previousState
     }

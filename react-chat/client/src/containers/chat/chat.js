@@ -1,23 +1,31 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
-import { NavBar, Icon,InputItem} from 'antd-mobile';
-import {getMsgList} from '../../redux/actions' 
+import { NavBar, Icon,InputItem,Grid} from 'antd-mobile';
+import {sendMsg} from '../../redux/actions' 
 import './chat.less'
 class Chat extends Component {
   constructor(){
     super()
     this.state={
-      content:''
+      content:'',
+      emojiShow:false
     }
     this.sendMsg=this.sendMsg.bind(this)
+    this.emojiHandle=this.emojiHandle.bind(this)
+    this.selectEmoji=this.selectEmoji.bind(this)
   }
-
+  emojiData=[{icon:'',text:'😁'}]
   backClick(){
     this.props.history.goBack(1)
   }
   handleChange(name,val){
     this.setState({
       [name]:val
+    })
+  }
+  emojiHandle(){
+    this.setState({
+      emojiShow:!this.state.emojiShow
     })
   }
   sendMsg(){
@@ -30,11 +38,16 @@ class Chat extends Component {
         content: this.state.content,
         read:false,
       }
-      this.props.getMsgList(params)
+      this.props.sendMsg(params)
       this.setState({
         content:''
       })
     }
+  }
+  selectEmoji(el,index){
+    this.setState({
+      content:this.state.content+el.text
+    })
   }
   render() {
     const {payload={}}=this.props.loginUserInfo
@@ -52,6 +65,9 @@ class Chat extends Component {
     const chatID=[currentUserID,targetID].sort().join('_')
     // 获取当前聊天记录
     const currentChatMsg=chatMsgs.filter(val=>val.chat_id===chatID)
+    const itemStyle={
+      padding:0,
+    }
     return (
         <div className='container'>
           <NavBar
@@ -59,7 +75,6 @@ class Chat extends Component {
                 mode="dark"
                 leftContent={<Icon type={'left'}  />}
                 rightContent={[
-                    <Icon key="0" type="search" style={{ marginRight: '16px' }} />,
                     <Icon key="1" type="ellipsis" />,
                     ]}
             >消息</NavBar>
@@ -87,10 +102,13 @@ class Chat extends Component {
           </div>
          
           <div className='chat-footer'>
-            <InputItem className='input-text' value={this.state.content}
-              onChange={(val)=>this.handleChange('content',val)}
-              extra={ <span className='send-btn' onClick={this.sendMsg}>发送</span> }>
-              </InputItem>
+            <InputItem value={this.state.content}
+            onChange={(val)=>this.handleChange('content',val)}
+            extra={ <div><span onClick={this.emojiHandle}>😁</span><span onClick={this.sendMsg}>发送</span></div> }>
+            </InputItem>
+            {
+              this.state.emojiShow?<Grid data={this.emojiData} onClick={this.selectEmoji} columnNum='6' itemStyle={itemStyle} hasLine={false} /> :null
+            }
           </div>
         </div>
     );
@@ -99,4 +117,4 @@ class Chat extends Component {
 export default connect((state)=>({
   loginUserInfo:state.loginUserInfo,
   msgsList:state.msgsList
-}),{getMsgList})(Chat) ;
+}),{sendMsg})(Chat) ;
