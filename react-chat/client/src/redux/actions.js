@@ -18,7 +18,7 @@ let socket=null
 const auth_success=(data)=>({type:AUTH_SUCCESS,data:data})
         
 // 验证失败返回message
-const auth_false=(message)=>({type:ERROR_MSG,data:message})
+const auth_false=(message)=>({type:ERROR_MSG,data:{message}})
 
 // 更新成功
 const update_success=data=>({type:RECEIVE_MSG,data:data})
@@ -73,13 +73,15 @@ export const register = (data) => {
 //  登录
 export const login = (data) => {
 
-    const {username,password}=data
+    const {username,password,type}=data
 
     if (!username) {
         return auth_false('用户名不能为空')
     } else if (!password) {
         return auth_false('密码不能为空')
-    } 
+    } else if(!type){
+        return auth_false('类型不能为空')
+    }
 
     return async dispatch => {
 

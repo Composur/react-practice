@@ -24,6 +24,11 @@ class Login extends Component {
         })
     }
     loginHandle(){
+        const {message}=this.props.loginUserInfo
+        if(message){
+            this.errorToast(message)
+            return
+        }
         this.props.login(this.state)
     }
     toRegister(){
@@ -33,15 +38,12 @@ class Login extends Component {
     backClick() {
         alert('back')
     }
+    errorToast=(message)=>{
+        Toast.info(message+'!!!', 1);
+    }
     render() {
         const {type}=this.state
-        const {message,redirectTo}=this.props.loginUserInfo
-        const errorToast=(message)=>{
-            Toast.info(message+'!!!', 1);
-        }
-        if(message){
-            errorToast(message)
-        }
+        const {redirectTo}=this.props.loginUserInfo
         if(redirectTo){
             return <Redirect to={redirectTo}/>
         }
