@@ -24,12 +24,12 @@ class Login extends Component {
         })
     }
     loginHandle(){
-        const {message}=this.props.loginUserInfo
-        if(message){
-            this.errorToast(message)
-            return
-        }
-        this.props.login(this.state)
+      this.props.login(this.state)
+      const {message}=this.props.loginUserInfo
+      if(message){
+          this.errorToast(message)
+          return
+      }
     }
     toRegister(){
         this.props.history.replace('/register')

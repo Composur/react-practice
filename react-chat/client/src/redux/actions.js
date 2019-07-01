@@ -72,9 +72,7 @@ export const register = (data) => {
 
 //  登录
 export const login = (data) => {
-
     const {username,password,type}=data
-
     if (!username) {
         return auth_false('用户名不能为空')
     } else if (!password) {

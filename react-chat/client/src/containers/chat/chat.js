@@ -13,8 +13,9 @@ class Chat extends Component {
     this.sendMsg=this.sendMsg.bind(this)
     this.emojiHandle=this.emojiHandle.bind(this)
     this.selectEmoji=this.selectEmoji.bind(this)
+    this.onFocus=this.onFocus.bind(this)
   }
-  emojiData=[{icon:'',text:'😁'}]
+  emojiData=[{icon:'',text:'😁'},{icon:'',text:'😁'},{icon:'',text:'😁'}]
   backClick(){
     this.props.history.goBack(1)
   }
@@ -49,6 +50,9 @@ class Chat extends Component {
       content:this.state.content+el.text
     })
   }
+  onFocus(){
+    this.emojiHandle()
+  }
   render() {
     const {payload={}}=this.props.loginUserInfo
     const {user={},chatMsgs=[]}=this.props.msgsList
@@ -58,7 +62,6 @@ class Chat extends Component {
     let targetUserAvatar=require(`../../assets/images/头像1.png`)
     if(user.avatar){
       const targetAvatar=user[targetID].avatar
-      console.log(targetAvatar)
       targetUserAvatar=require(`../../assets/images/${targetAvatar}.png`)
     }
    
@@ -66,7 +69,6 @@ class Chat extends Component {
     // 获取当前聊天记录
     const currentChatMsg=chatMsgs.filter(val=>val.chat_id===chatID)
     const itemStyle={
-      padding:0,
     }
     return (
         <div className='container'>
@@ -104,10 +106,11 @@ class Chat extends Component {
           <div className='chat-footer'>
             <InputItem value={this.state.content}
             onChange={(val)=>this.handleChange('content',val)}
+            onFocus={this.onFocus}
             extra={ <div><span onClick={this.emojiHandle}>😁</span><span onClick={this.sendMsg}>发送</span></div> }>
             </InputItem>
             {
-              this.state.emojiShow?<Grid data={this.emojiData} onClick={this.selectEmoji} columnNum='6' itemStyle={itemStyle} hasLine={false} /> :null
+              this.state.emojiShow?<Grid data={this.emojiData} onClick={this.selectEmoji} columnNum='10' itemStyle={itemStyle} hasLine={false} /> :null
             }
           </div>
         </div>

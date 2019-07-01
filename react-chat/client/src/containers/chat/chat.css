@@ -75,3 +75,6 @@
 .chat-footer .grid-item {
   padding: 0;
 }
+.am-grid .am-flexbox .am-flexbox-item .am-grid-item-content .am-grid-item-inner-content .am-grid-text {
+  margin-top: 0;
+}
