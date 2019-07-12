@@ -8,12 +8,14 @@ class Chat extends Component {
     super()
     this.state={
       content:'',
-      emojiShow:false
+      emojiShow:false,
+      count:1
     }
     this.sendMsg=this.sendMsg.bind(this)
     this.emojiHandle=this.emojiHandle.bind(this)
     this.selectEmoji=this.selectEmoji.bind(this)
     this.onFocus=this.onFocus.bind(this)
+    this.onkeyEnter=this.onkeyEnter.bind(this)
   }
   emojiData=[{icon:'',text:'😁'},{icon:'',text:'😁'},{icon:'',text:'😁'}]
   backClick(){
@@ -39,10 +41,19 @@ class Chat extends Component {
         content: this.state.content,
         read:false,
       }
+      this.setState({
+        emojiShow:false
+      })
       this.props.sendMsg(params)
       this.setState({
         content:''
       })
+    }
+  }
+  onkeyEnter(e){
+    console.log(e.keyCode)
+    if(e.keyCode===13){
+      this.sendMsg()
     }
   }
   selectEmoji(el,index){
@@ -51,6 +62,10 @@ class Chat extends Component {
     })
   }
   onFocus(){
+    this.setState({
+      count:this.state.count+1
+    })
+    console.log(this.state.count)
     this.emojiHandle()
   }
   render() {
@@ -104,10 +119,10 @@ class Chat extends Component {
           </div>
          
           <div className='chat-footer'>
-            <InputItem value={this.state.content}
+            <InputItem value={this.state.content} onKeyDown={this.onkeyEnter}
             onChange={(val)=>this.handleChange('content',val)}
             onFocus={this.onFocus}
-            extra={ <div><span onClick={this.emojiHandle}>😁</span><span onClick={this.sendMsg}>发送</span></div> }>
+            extra={ <div><span onClick={this.emojiHandle}>😁</span><span onClick={this.sendMsg} >发送</span></div> }>
             </InputItem>
             {
               this.state.emojiShow?<Grid data={this.emojiData} onClick={this.selectEmoji} columnNum='10' itemStyle={itemStyle} hasLine={false} /> :null
