@@ -26,7 +26,6 @@ class Login extends Component {
     loginHandle(){
 
       // 同步的action
-      debugger
       this.props.login(this.state)
 
       // 为什么第一次的时候拿不到message

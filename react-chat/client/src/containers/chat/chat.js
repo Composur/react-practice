@@ -66,7 +66,7 @@ class Chat extends Component {
       count:this.state.count+1
     })
     console.log(this.state.count)
-    this.emojiHandle()
+    // this.emojiHandle()
   }
   render() {
     const {payload={}}=this.props.loginUserInfo
