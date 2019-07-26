@@ -17,7 +17,7 @@ class Chat extends Component {
     this.onFocus=this.onFocus.bind(this)
     this.onkeyEnter=this.onkeyEnter.bind(this)
   }
-  emojiData=[{icon:'',text:'😁'},{icon:'',text:'😁'},{icon:'',text:'😁'}]
+  emojiData=[{icon:'',text:'😁'},{icon:'',text:'😁'},{icon:'',text:'😁'},{icon:'',text:'😁'},{icon:'',text:'😁'},{icon:'',text:'😁'}]
   backClick(){
     this.props.history.goBack(1)
   }
@@ -34,12 +34,16 @@ class Chat extends Component {
   sendMsg(){
     const {payload}=this.props.loginUserInfo
     const {userid}=this.props.match.params
+    const {user={}}=this.props.msgsList
+    const targetID=this.props.match.params.userid //目标ID
     if (this.state.content && payload._id && userid) {
       const params={
         from: payload._id,
         to: userid,
         content: this.state.content,
         read:false,
+        avatar:user[targetID].avatar,
+        username:user[targetID].username
       }
       this.setState({
         emojiShow:false
@@ -68,6 +72,12 @@ class Chat extends Component {
     console.log(this.state.count)
     // this.emojiHandle()
   }
+  componentDidMount(){
+    window.scrollTo(0,document.body.scrollHeight)
+  }
+  componentDidUpdate (){
+    window.scrollTo(0,document.body.scrollHeight)
+  }
   render() {
     const {payload={}}=this.props.loginUserInfo
     const {user={},chatMsgs=[]}=this.props.msgsList
@@ -75,9 +85,13 @@ class Chat extends Component {
     const currentUserAvatar=require(`../../assets/images/${payload.avatar || '头像1'}.png`)
     const targetID=this.props.match.params.userid //目标ID
     let targetUserAvatar=require(`../../assets/images/头像1.png`)
-    if(user.avatar){
+    let username='消息'//默认的消息头
+    if(user[targetID]){
       const targetAvatar=user[targetID].avatar
-      targetUserAvatar=require(`../../assets/images/${targetAvatar}.png`)
+      username=user[targetID].username
+      targetUserAvatar=require(`../../assets/images/${targetAvatar || '头像1'}.png`)
+    }else{
+      return null
     }
    
     const chatID=[currentUserID,targetID].sort().join('_')
@@ -94,7 +108,7 @@ class Chat extends Component {
                 rightContent={[
                     <Icon key="1" type="ellipsis" />,
                     ]}
-            >消息</NavBar>
+            >{username}</NavBar>
           <div className='chat-body'>
           {
             currentChatMsg.map(val=>{

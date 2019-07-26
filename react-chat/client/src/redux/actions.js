@@ -165,7 +165,6 @@ export const sendMsg = (content) => {
  
 // 初始化socket连接
 function initIO(dispatch,userid){
-  console.log(userid)
   if(!socket){
     socket=io(socketUrl)
     socket.on('sendClientMsg',function(data){ //浏览器监听接收服务器发来的消息，前后端消息名称要一致

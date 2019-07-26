@@ -11,4 +11,6 @@ module.exports = new Schema({
     content: {type:String,required:true},
     read: {type:Boolean,required:false},
     create_time: {type:String ,required:true},
+    avatar: {type:String ,required:false},
+    username: {type:String ,required:true},
 })
