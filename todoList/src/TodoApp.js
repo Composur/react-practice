@@ -7,8 +7,8 @@ export default class TodoApp extends Component{
     return(
       <div>
         <Todos></Todos>
-        <Filter></Filter>
       </div>
     )
   }
 }
+

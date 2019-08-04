@@ -1,7 +1,6 @@
-import React from 'react';
 import {connect} from 'react-redux'
-import reducer from '../reducer'
-import actions from '../actons'
-connect(state=>({
-
-}),{})
+import {addTodo,toggleTodo,removeTodo} from '../actons'
+import  {Todos}  from './component';
+export default connect(state=>({
+  todoList:state.todoList
+}),{addTodo,toggleTodo,removeTodo})(Todos)
