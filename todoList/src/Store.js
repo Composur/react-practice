@@ -10,11 +10,18 @@
 
 // export default createStore(AppReducers,composeWithDevTools(applyMiddleware(chunk)))
 
-import {createStore,combineReducers} from 'redux'
+import {createStore,combineReducers,applyMiddleware,compose} from 'redux'
 import {reducer as filterReducer} from './filter'
 import {reudcer as todoReducer} from './todoList'
 const rudecer=combineReducers({
   filterReducer,todoReducer
 })
-
 export default createStore(rudecer)
+
+
+// import { createStore, applyMiddleware } from 'redux';
+
+// const store = createStore(reducer, composeWithDevTools(
+//   applyMiddleware(...middleware),
+//   // other store enhancers if any
+// ));
