@@ -14,7 +14,8 @@ import {createStore,combineReducers,applyMiddleware,compose} from 'redux'
 import {reducer as filterReducer} from './filter'
 import {reudcer as todoReducer} from './todoList'
 const rudecer=combineReducers({
-  filterReducer,todoReducer
+  filter:filterReducer,
+  todos:todoReducer
 })
 export default createStore(rudecer)
 
