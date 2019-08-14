@@ -12,7 +12,7 @@ export default (state = [], action) => {
         {
           id: action.id,
           text: action.text,
-          complete: false
+          completed: false
         }
       ]
     case TOGGLE_TODO:
@@ -21,7 +21,7 @@ export default (state = [], action) => {
         if (currentId === action.id) {
           return {
             ...item,
-            complete: !action.complete
+            completed: !action.completed
           } //展开运算符，后面complete字段会覆盖当前展开对象的complete
         } else {
           return item

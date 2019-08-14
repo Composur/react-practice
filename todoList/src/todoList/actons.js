@@ -6,7 +6,7 @@ export const addTodo=(text)=>({
   type:ADD_TODO,
   id:nextTodoId++,//每增加一项id加一
   text:text,
-  complete:false
+  completed:false
 })
 
 export const toggleTodo=(id)=>({

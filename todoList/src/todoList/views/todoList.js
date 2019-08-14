@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
+import {removeTodo,toggleTodo} from '../actons'
 import {FilterTypes} from '../../constants';
+import { TodoItem } from './todoItem';
+
 class TodoList extends Component {
   render() {
-    const todos=this.props.todos
-    console.log(todos)
+    const {todos,onRemoveTodo,onToggletodo}=this.props
+    console.log(this.props)
     return (
       <ul>
         {
-          todos.map((todo,index)=>{
+          todos.map((todo)=>{
            return(
-             <li key={todo.id}>{todo.text}</li>
+            <TodoItem key={todo.id} text={todo.text} completed={todo.completed} onRemoveTodo={()=>onRemoveTodo(todo.id)} onToggleTodo={()=>onToggletodo(todo.id)}/>
            ) 
           })
         }
@@ -36,4 +39,14 @@ const mapStateToProps=(state)=>({ //需要过滤，几种不同的状态
   todos: selectVisibleTodos(state.todos,state.filter)
 })
 
-export default connect(mapStateToProps)(TodoList)
+const mapDispatchToProps=(dispatch)=>{
+  return{
+    onRemoveTodo:(id)=>{
+      dispatch(removeTodo(id))
+    },
+    onToggletodo:(id)=>{
+      dispatch(toggleTodo(id))
+    }
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(TodoList)
