@@ -16,12 +16,11 @@ export default (state = [], action) => {
         }
       ]
     case TOGGLE_TODO:
-      const currentId = state[action.id].id
       return state.map(item => {
-        if (currentId === action.id) {
+        if (item.id === action.id) {
           return {
             ...item,
-            completed: !action.completed
+            completed: !item.completed
           } //展开运算符，后面complete字段会覆盖当前展开对象的complete
         } else {
           return item
