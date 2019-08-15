@@ -16,8 +16,12 @@ class AddTodo extends Component {
  }
  onSubmit(){
   const inputValue=this.state.value
-  this.props.onAdd(inputValue)
-  this.setState({value:''})
+  if(inputValue){
+    this.props.onAdd(inputValue)
+    this.setState({value:''})
+  }else{
+    alert('不能为空')
+  }
  }
  onInputChange(e){
   this.setState({

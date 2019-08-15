@@ -7,9 +7,8 @@ import { TodoItem } from './todoItem';
 class TodoList extends Component {
   render() {
     const {todos,onRemoveTodo,onToggletodo}=this.props
-    console.log(this.props)
     return (
-      <ul>
+      <ol>
         {
           todos.map((todo)=>{
            return(
@@ -17,7 +16,7 @@ class TodoList extends Component {
            ) 
           })
         }
-      </ul>
+      </ol>
     );
   }
 }

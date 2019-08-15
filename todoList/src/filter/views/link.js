@@ -1,26 +1,27 @@
 import React, { Component } from 'react';
 import {setFilter} from '../actions'
 import {connect} from 'react-redux'
-
+import PropTypes from 'prop-types';
 
 class Link extends Component{
+  static propTypes={
+    children:PropTypes.string
+  }
   constructor(){
     super()
     this.filter=this.filter.bind(this)
   }
   filter(){
-    debugger
     this.props.setFilter(this.props.FilterTypes)
   }
   render(){
-    console.log(this.props)
     return(
-      <a href='javascript:void(0)' onClick={this.filter}>{this.props.children}</a>
+      <button className='' onClick={this.filter}>{this.props.children}</button>
     )
   }
 }
 
-const mapStateToProps=(state,ownProps)=>(console.log(state,ownProps),{
+const mapStateToProps=(state,ownProps)=>({
   active:state.filter===ownProps.FilterTypes
 })
 

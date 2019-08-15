@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Link from "./link";
 import { FilterTypes } from '../../constants';
-
+import './style.css'
 export default class Filter extends Component {
   state = {  }
   render() {

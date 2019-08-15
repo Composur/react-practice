@@ -1,0 +1,15 @@
+button{
+  border: none;
+  background: #0084ff;
+  color: #fff;
+  margin-left: 4px;
+  border-radius: 1px;
+  outline: none;
+  cursor: pointer;
+  opacity: 0.8;
+
+}
+button:active{
+  background: #0084ff;
+  opacity: 1;
+}
