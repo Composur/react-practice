@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const User=require('../models/user') //model应该放control文件夹去处理，这里内容少就写这里了
 const Chat=require('../models/chat')
-const md5=require('blueimp-md5')
+const md5=require('blueimp-md5')//node-ssha256 md5现在不安全
 const filters = { //过滤返回前端属性
   password: 0,
   __v: 0
@@ -10,7 +10,7 @@ const filters = { //过滤返回前端属性
 const filtersByID={
    "fields": {
     password: 0,
-    __v: 0
+    __v: 0 
   },
   "new": true
 }
