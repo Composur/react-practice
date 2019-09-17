@@ -7,6 +7,8 @@ import io from 'socket.io-client'
 import {socketUrl} from '../config/config.default'
 import {reqRegister,reqLogin,reqUpdateUser,reqUserInfo,reqUserList,reqMsgList} from '../api'
 import{AUTH_SUCCESS,ERROR_MSG,RECEIVE_MSG,RECEIVE_ERR,GET_USER_LIST,GET_MSG_LIST,GET_MSG} from './action-types'
+import {initIO} from '../socketIo/connectIO'
+
 let socket=null
 
 
@@ -164,21 +166,21 @@ export const sendMsg = (content) => {
 }
  
 // 初始化socket连接
-function initIO(dispatch,userid){
-  if(!socket){
-    socket=io(socketUrl)
-    socket.on('sendClientMsg',function(data){ //浏览器监听接收服务器发来的消息，前后端消息名称要一致
-      if (data.from === userid || data.to === userid) { //只有当前消息是自己的消息在进行分发
-        dispatch(get_msg(data)) //分发单条信息，聊天界面用
-        console.log('浏览器收到', data)
-      }
-    })
-  }
-}
+// function initIO(dispatch,userid){
+//   if(!socket){
+//     socket=io(socketUrl)
+//     socket.on('sendClientMsg',function(data){ //浏览器监听接收服务器发来的消息，前后端消息名称要一致
+//       if (data.from === userid || data.to === userid) { //只有当前消息是自己的消息在进行分发
+//         dispatch(get_msg(data)) //分发单条信息，聊天界面用
+//         console.log('浏览器收到', data)
+//       }
+//     })
+//   }
+// }
 
 // 在登录、注册、获取用户列表阶段、获取用户消息列表
 async function getUserMsgsList(dispatch,userid) { 
-    initIO(dispatch,userid)
+    socket = initIO(dispatch,userid,get_msg)
     const {data} = await reqMsgList()
     if(data.success){
       const {user,chatMsgs}=data.payload

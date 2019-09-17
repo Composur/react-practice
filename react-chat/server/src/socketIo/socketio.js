@@ -12,7 +12,7 @@ module.exports = function (server) {
             chat.save().then(result=>{
                 // 保存成功后向客户端发送 当前用户->目标用户
                 // IO.emit('sendClientMsg',result)
-                IO.emit('sendClientMsg',result)
+                IO.emit('sendClientMsg',result) //向所有的连接用户发消息
             }).catch(e=>{
                 console.log(e)
             })

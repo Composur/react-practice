@@ -62,7 +62,7 @@ class Login extends Component {
                         <Icon key="0" type="search" style={{ marginRight: '16px' }} />,
                         <Icon key="1" type="ellipsis" />,
                     ]}
-                >智能CRM</NavBar>
+                >React-chat</NavBar>
                 <Logo></Logo>
                 <WingBlank>
                     <WhiteSpace />

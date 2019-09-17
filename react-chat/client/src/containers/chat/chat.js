@@ -36,11 +36,12 @@ class Chat extends Component {
     const {userid}=this.props.match.params
     const {user={}}=this.props.msgsList
     const targetID=this.props.match.params.userid //目标ID
-    if (this.state.content && payload._id && userid) {
+    const content=this.state.content.trim()
+    if (content && payload._id && userid) {
       const params={
         from: payload._id,
         to: userid,
-        content: this.state.content,
+        content: content,
         read:false,
         avatar:user[targetID].avatar,
         username:user[targetID].username
@@ -72,6 +73,7 @@ class Chat extends Component {
     console.log(this.state.count)
     // this.emojiHandle()
   }
+  // 每次渲染滚动屏幕到最后一条消息尾部
   componentDidMount(){
     window.scrollTo(0,document.body.scrollHeight)
   }
@@ -95,7 +97,7 @@ class Chat extends Component {
     }
    
     const chatID=[currentUserID,targetID].sort().join('_')
-    // 获取当前聊天记录
+    // 获取当前聊天记录 当前聊天的id
     const currentChatMsg=chatMsgs.filter(val=>val.chat_id===chatID)
     const itemStyle={
     }
@@ -112,7 +114,7 @@ class Chat extends Component {
           <div className='chat-body'>
           {
             currentChatMsg.map(val=>{
-              const {chat_id,from,to,content,_id}=val
+              const {to,content,_id}=val
               if(currentUserID===to){ //别人对我说的
                 return(
                   <div className='chat-wrap' key={_id}>

@@ -1,11 +1,7 @@
 .logo-container {
-  display: -webkit-flex;
-  /* Safari */
-  display: flex;
-  justify-content: center;
   margin: 70px 0;
 }
 .logo-container .logo {
-  width: 80%;
-  height: 80%;
+  width: 100%;
+  z-index: -1;
 }
