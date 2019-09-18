@@ -1,2 +1,2 @@
-import Message from "./container";
+import Message from "./message";
 export default Message;

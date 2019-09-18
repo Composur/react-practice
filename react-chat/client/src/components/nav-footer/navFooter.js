@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {TabBar} from 'antd-mobile'
+import {TabBar,Badge} from 'antd-mobile'
 import PropTypes from 'prop-types';
 import './index.less'
 
@@ -10,7 +10,7 @@ export default class navFooter extends Component {
         navList:PropTypes.array.isRequired
     }
     render() {
-        const {navList}=this.props
+        const {navList,unReadCount}=this.props
         const navListFilter=navList.filter((val)=>{
             return !val.hide
         })
@@ -24,10 +24,10 @@ export default class navFooter extends Component {
                 {
                     navListFilter.map((val)=>{
                       return(
-                        <Item title={val.title} key={val.path} icon={{uri:require(`./images/${val.icon}.png`)}}
+                        <Item badge={val.isMessage?unReadCount:null}
+                        title={val.title} key={val.path} icon={{uri:require(`./images/${val.icon}.png`)}}
                          selectedIcon={{uri:require(`./images/${val.icon}-selected.png`)}} selected={val.path===path}
                          onPress={()=> this.props.history.replace(val.path)} 
-                         
                          >
                         </Item>
                       ) 

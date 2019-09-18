@@ -75,10 +75,10 @@ class Chat extends Component {
   }
   // 每次渲染滚动屏幕到最后一条消息尾部
   componentDidMount(){
-    window.scrollTo(0,document.body.scrollHeight)
+    window.scrollTo(0,document.body.scrollHeight)//初始化
   }
   componentDidUpdate (){
-    window.scrollTo(0,document.body.scrollHeight)
+    window.scrollTo(0,document.body.scrollHeight)//更新
   }
   render() {
     const {payload={}}=this.props.loginUserInfo
@@ -88,19 +88,19 @@ class Chat extends Component {
     const targetID=this.props.match.params.userid //目标ID
     let targetUserAvatar=require(`../../assets/images/头像1.png`)
     let username='消息'//默认的消息头
-    if(user[targetID]){
-      const targetAvatar=user[targetID].avatar
-      username=user[targetID].username
-      targetUserAvatar=require(`../../assets/images/${targetAvatar || '头像1'}.png`)
-    }else{
+    
+    if (user[targetID]) {
+      const targetAvatar = user[targetID].avatar
+      username = user[targetID].username
+      targetUserAvatar = require(`../../assets/images/${targetAvatar || '头像1'}.png`)
+    } else { //无数据返回null 不往下走 不显示任何
       return null
     }
    
-    const chatID=[currentUserID,targetID].sort().join('_')
+    const chatID = [currentUserID, targetID].sort().join('_')
     // 获取当前聊天记录 当前聊天的id
-    const currentChatMsg=chatMsgs.filter(val=>val.chat_id===chatID)
-    const itemStyle={
-    }
+    const currentChatMsg = chatMsgs.filter(val => val.chat_id === chatID)
+    const itemStyle = {}
     return (
         <div className='container'>
           <NavBar

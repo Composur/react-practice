@@ -35,7 +35,7 @@ export default class Main extends Component{
     navList=[ //导航tab
         {path:'/boss',title:'admin',icon:'laoban',component:PersonMain},
         {path:'/personal',title:'personal',icon:'dashen',component:BoosMain},
-        {path:'/message',title:'消息',icon:'message',component:Message},
+        {path:'/message',title:'消息',icon:'message',component:Message,'isMessage':true},
         {path:'/user',title:'个人中心',icon:'personal',component:User},
     ]
     // 有cookie但是redux中没有登录信息，需要请求一下当前cookie的用户信息
@@ -46,13 +46,14 @@ export default class Main extends Component{
             this.props.userInfo()
         }
     }
-
-  
     render(){
         // 检查用户是否登录
         const userId=getCookie('user_id')
         const { payload={} } = this.props.loginUserInfo || this.props.updateUserInfo
-        
+        const {chatMsgs=[]}=this.props.msgLists
+        let unReadCount=chatMsgs.reduce((pre,item)=>{
+            return pre+(!item.read&&item.to===payload._id?1:0)
+        },0)
         if(!userId){ //未登录去登录
             return <Redirect to='/login'/>
         }else{ 
@@ -96,7 +97,7 @@ export default class Main extends Component{
                     })
                 }
                </Switch>
-               {currentNav?<NavFooter navList={this.navList}></NavFooter>:null}
+               {currentNav?<NavFooter navList={this.navList} unReadCount={unReadCount}></NavFooter>:null}
             </div>
         )
     }
