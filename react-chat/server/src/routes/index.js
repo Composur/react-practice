@@ -147,7 +147,6 @@ router.get('/userInfo',function(req,res){
 // 获取用户列表
 router.post('/userList',function(req,res){
   const {type}=req.body
-  console.log(type)
   User.find({type},filters).then((data,error)=>{
     if(data){
       responseData.code=1
@@ -201,7 +200,20 @@ router.post('/msgNums',function(req,res){
   })
 })
 
-
+// 更新已读消息状态
+router.post('/msgNums/hasRead',function(req,res){
+  const {chat_id}=req.body
+  if(chat_id){
+    Chat.updateMany({chat_id:chat_id,read:false},{$set:{read:true}},function(err,data){
+      if (data) {
+        responseData.success = true
+        responseData.message = '更新成功'
+        res.json(responseData)
+        return
+      }
+    })
+  }
+})
 
 
 function getCookie(req, res) {

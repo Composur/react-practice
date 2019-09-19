@@ -25,3 +25,6 @@ export const reqMsgList=()=>{return axios('/msgList')}
 
 // 获取用户已读消息
 export const reqReadMsg=(id)=>{return axios('/msgNums',id,'POST')}
+
+// 更新用户已读消息
+export const updateReadMsg=(id)=>{return axios('/msgNums/hasRead',id,'POST')}

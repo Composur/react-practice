@@ -8,3 +8,4 @@ export const GET_USER_ERROR='get_user_error' //获取用户信息成功
 export const GET_USER_LIST='get_user_list' //获取用户列表
 export const GET_MSG_LIST='get_msg_list' //获取用户列表
 export const GET_MSG='get_msg' //获取用户列表
+export const UPDATE_READ_MSG='update_read_msg' //获取用户列表

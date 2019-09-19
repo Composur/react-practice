@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import { NavBar, Icon,InputItem,Grid} from 'antd-mobile';
-import {sendMsg} from '../../redux/actions' 
+import {sendMsg,updateReadMsgs} from '../../redux/actions' 
 import './chat.less'
 class Chat extends Component {
   constructor(){
@@ -56,7 +56,6 @@ class Chat extends Component {
     }
   }
   onkeyEnter(e){
-    console.log(e.keyCode)
     if(e.keyCode===13){
       this.sendMsg()
     }
@@ -70,15 +69,33 @@ class Chat extends Component {
     this.setState({
       count:this.state.count+1
     })
-    console.log(this.state.count)
     // this.emojiHandle()
   }
   // 每次渲染滚动屏幕到最后一条消息尾部
   componentDidMount(){
     window.scrollTo(0,document.body.scrollHeight)//初始化
+    this.updateReadCount()
   }
+
   componentDidUpdate (){
     window.scrollTo(0,document.body.scrollHeight)//更新
+  }
+  componentWillUnmount(){
+    // this.updateReadCount()
+  }
+  updateReadCount(){
+    const chatUserId=this.props.match.params.userid
+    const {payload={}}=this.props.loginUserInfo
+    const {chatMsgs=[]}=this.props.msgsList
+    const chat_id=[chatUserId,payload._id].sort((a,b)=>b-a).join('_')
+    chatMsgs.forEach(msg => {
+      if(chat_id===msg.chat_id){
+        msg.read=true
+      }
+    });
+    this.props.updateReadMsgs({
+      chat_id:chat_id
+    })
   }
   render() {
     const {payload={}}=this.props.loginUserInfo
@@ -150,5 +167,6 @@ class Chat extends Component {
 }
 export default connect((state)=>({
   loginUserInfo:state.loginUserInfo,
-  msgsList:state.msgsList
-}),{sendMsg})(Chat) ;
+  msgsList:state.msgsList,
+  updateReadMsg:state.updateReadMsg
+}),{sendMsg,updateReadMsgs})(Chat) ;

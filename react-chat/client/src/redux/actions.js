@@ -3,10 +3,8 @@
  * 同步actions
  * 异步actions
  */
-import io from 'socket.io-client'
-import {socketUrl} from '../config/config.default'
-import {reqRegister,reqLogin,reqUpdateUser,reqUserInfo,reqUserList,reqMsgList} from '../api'
-import{AUTH_SUCCESS,ERROR_MSG,RECEIVE_MSG,RECEIVE_ERR,GET_USER_LIST,GET_MSG_LIST,GET_MSG} from './action-types'
+import {reqRegister,reqLogin,reqUpdateUser,reqUserInfo,reqUserList,reqMsgList,updateReadMsg} from '../api'
+import{AUTH_SUCCESS,ERROR_MSG,RECEIVE_MSG,RECEIVE_ERR,GET_USER_LIST,GET_MSG_LIST,GET_MSG,UPDATE_READ_MSG} from './action-types'
 import {initIO} from '../socketIo/connectIO'
 
 let socket=null
@@ -36,6 +34,9 @@ const get_msg_list=({user,chatMsgs})=>({type:GET_MSG_LIST,data:{user,chatMsgs}})
 
 // 得到消息
 const get_msg=(msgs)=>({type:GET_MSG,data:msgs})
+
+// 更新已读消息成功
+const update_read_msg=(data)=>({type:UPDATE_READ_MSG,data:data})
 
 
 /*
@@ -159,9 +160,19 @@ export const getMsgList=(parms)=>{
 // 发送消息
 export const sendMsg = (content) => {
   return dispatch => {
-    console.log('浏览器发出', content)
     // 发消息
     socket.emit('sendMsg',content)
+  }
+}
+// 更新已读消息
+export const updateReadMsgs = (chat_id) => {
+  if(chat_id){
+      return async dispatch=>{
+          const {data}= await updateReadMsg(chat_id)
+          if(data.success){
+            dispatch(update_read_msg(data))
+          }
+      }
   }
 }
  

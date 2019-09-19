@@ -4,7 +4,7 @@
  */
 
 import {combineReducers} from 'redux'
-import{AUTH_SUCCESS,ERROR_MSG,RECEIVE_MSG, RECEIVE_ERR,GET_USER_LIST,GET_MSG_LIST,GET_MSG} from './action-types'
+import{AUTH_SUCCESS,ERROR_MSG,RECEIVE_MSG, RECEIVE_ERR,GET_USER_LIST,GET_MSG_LIST,GET_MSG,UPDATE_READ_MSG} from './action-types'
 
 import {redirectTo} from '../utils'
 
@@ -74,5 +74,14 @@ export function msgsList(previousState=userMsgList,action){
     }
 }
 
+export function updateReadMsg(previousState={},action){
+    if(action.type===UPDATE_READ_MSG){
+        return {...action.data}
+    }else{
+        return previousState
+    }
+}
+
+
 // 管理reduce
-export default combineReducers({loginUserInfo,updateUserInfo,userListInfo,msgsList}) 
+export default combineReducers({loginUserInfo,updateUserInfo,userListInfo,msgsList,updateReadMsg}) 

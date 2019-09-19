@@ -7,7 +7,8 @@ const Item=TabBar.Item
 
 export default class navFooter extends Component {
     static propTypes={
-        navList:PropTypes.array.isRequired
+        navList:PropTypes.array.isRequired,
+        unReadCount:PropTypes.number.isRequired,
     }
     render() {
         const {navList,unReadCount}=this.props
