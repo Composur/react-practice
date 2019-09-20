@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import { NavBar, Icon,InputItem,Grid} from 'antd-mobile';
+import QueueAnim from 'rc-queue-anim';
 import {sendMsg,updateReadMsgs} from '../../redux/actions' 
 import './chat.less'
 class Chat extends Component {

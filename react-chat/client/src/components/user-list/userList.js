@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {WingBlank,WhiteSpace,Card} from 'antd-mobile'
+import QueueAnim from 'rc-queue-anim';
 import PropTypes from 'prop-types';
 import './userList.css'
 
@@ -12,6 +13,7 @@ export default class UserList extends Component {
         const {userListInfo}=this.props
         return (
           <div className='user-list'>
+          <QueueAnim type='left'>
           {
             userListInfo.map((val,index)=>{
               return(
@@ -35,6 +37,7 @@ export default class UserList extends Component {
               )
             })
           }
+          </QueueAnim>
           </div>
         );
     }

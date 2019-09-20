@@ -1,5 +1,6 @@
 import React,{Component} from 'react'
 import {List,Badge} from 'antd-mobile'
+import QueueAnim from 'rc-queue-anim';
 import {connect} from 'react-redux'
 
 const Item=List.Item
@@ -70,6 +71,7 @@ function getMsgLists(chatMsgs, userId) {
     return (
       <div style={messageStyle}>
       <List className="my-list">
+      <QueueAnim type='alpha'>
         {
           lastMsgsArr.map(item=>{
             const currentId=payload._id
@@ -82,6 +84,7 @@ function getMsgLists(chatMsgs, userId) {
             )
           })
         }
+        </QueueAnim>
       </List>
      
       </div>
