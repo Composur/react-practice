@@ -57,12 +57,10 @@ class Login extends Component {
                 <NavBar
                     onLeftClick={this.backClick.bind(this)}
                     mode="dark"
-                    leftContent="返回"
+                    leftContent=""
                     rightContent={[
-                        <Icon key="0" type="search" style={{ marginRight: '16px' }} />,
-                        <Icon key="1" type="ellipsis" />,
                     ]}
-                >React-chat</NavBar>
+                >WeChat</NavBar>
                 <Logo></Logo>
                 <WingBlank>
                     <WhiteSpace />
