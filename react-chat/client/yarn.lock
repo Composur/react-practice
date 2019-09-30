@@ -8366,6 +8366,15 @@ rc-swipeout@~2.0.0:
     rc-gesture "~0.0.22"
     react-native-swipeout "^2.2.2"
 
+rc-texty@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.npm.taobao.org/rc-texty/download/rc-texty-0.2.0.tgz#79af813523bfc314ba74af2bc086cda8b3296458"
+  integrity sha1-ea+BNSO/wxS6dK8rwIbNqLMpZFg=
+  dependencies:
+    babel-runtime "6.x"
+    classnames "^2.2.6"
+    rc-tween-one "^2.2.0"
+
 rc-tooltip@^3.4.2:
   version "3.7.3"
   resolved "https://registry.npm.taobao.org/rc-tooltip/download/rc-tooltip-3.7.3.tgz#280aec6afcaa44e8dff0480fbaff9e87fc00aecc"
@@ -8387,7 +8396,7 @@ rc-trigger@^2.2.2:
     rc-animate "2.x"
     rc-util "^4.4.0"
 
-rc-tween-one@^2.5.0:
+rc-tween-one@^2.2.0, rc-tween-one@^2.5.0:
   version "2.6.3"
   resolved "https://registry.npm.taobao.org/rc-tween-one/download/rc-tween-one-2.6.3.tgz?cache=0&sync_timestamp=1567672494088&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Frc-tween-one%2Fdownload%2Frc-tween-one-2.6.3.tgz#9afe966d0fcdcf9af1a8ee658d72ed20a525ed46"
   integrity sha1-mv6WbQ/Nz5rxqO5ljXLtIKUl7UY=
