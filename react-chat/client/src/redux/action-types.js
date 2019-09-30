@@ -9,3 +9,5 @@ export const GET_USER_LIST='get_user_list' //获取用户列表
 export const GET_MSG_LIST='get_msg_list' //获取用户列表
 export const GET_MSG='get_msg' //获取用户列表
 export const UPDATE_READ_MSG='update_read_msg' //获取用户列表
+export const REG_SUCCESS='reg_success'
+export const REG_FAIL='reg_fail' 

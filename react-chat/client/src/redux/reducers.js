@@ -4,17 +4,21 @@
  */
 
 import {combineReducers} from 'redux'
-import{AUTH_SUCCESS,ERROR_MSG,RECEIVE_MSG, RECEIVE_ERR,GET_USER_LIST,GET_MSG_LIST,GET_MSG,UPDATE_READ_MSG} from './action-types'
+import{REG_FAIL,REG_SUCCESS,AUTH_SUCCESS,ERROR_MSG,RECEIVE_MSG, RECEIVE_ERR,GET_USER_LIST,GET_MSG_LIST,GET_MSG,UPDATE_READ_MSG} from './action-types'
 
 import {redirectTo} from '../utils'
 
-
+const initUser = {
+    username: '', // 用户名
+    type: '', // 用户类型 dashen/laoban
+    message: '', // 错误提示信息
+    redirectTo: '' // 需要自动重定向的路由路径
+  }
 // 用户信息
-export function loginUserInfo(previousState = {}, action) { //管理user type=boss message err
+export function loginUserInfo(previousState = initUser, action) { //管理user type=boss message err
    switch(action.type){
 
         case AUTH_SUCCESS:
-
             const {type=undefined,avatar=undefined}=action.data.payload
             return {...action.data,redirectTo:redirectTo(type,avatar)}
 
@@ -44,12 +48,12 @@ export function userListInfo(previousState={},action){
 }
 
 // 用户的更新信息
-export function updateUserInfo(previousState={},action){
-    switch(action.type){
-        default:
-        return previousState
-   }
-}
+// export function updateUserInfo(previousState={},action){
+//     switch(action.type){
+//         default:
+//         return previousState
+//    }
+// }
 
 // 用户消息列表
 
@@ -82,6 +86,17 @@ export function updateReadMsg(previousState={},action){
     }
 }
 
+// 注册用户
+export function regUserInfo(previousState=initUser,action){
+    if(action.type===REG_SUCCESS){
+        const {type=undefined,avatar=undefined}=action.data.payload
+        return {...action.data,redirectTo:redirectTo(type,avatar)}
+    }else if(action.type===REG_FAIL){
+        return {...action.data}
+    }else{
+        return previousState
+    }
+}
 
 // 管理reduce
-export default combineReducers({loginUserInfo,updateUserInfo,userListInfo,msgsList,updateReadMsg}) 
+export default combineReducers({regUserInfo,loginUserInfo,userListInfo,msgsList,updateReadMsg}) 

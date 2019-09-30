@@ -17,7 +17,8 @@ class Register extends Component {
             username: '',
             password: '',
             passwordAgain:'',
-            type:''
+            type:'',
+            message:''
         }
         this.registerHandle=this.registerHandle.bind(this)
         this.toLogin=this.toLogin.bind(this)
@@ -38,15 +39,9 @@ class Register extends Component {
     }
     render() {
         const {type}=this.state
-        const {message,redirectTo}=this.props.loginUserInfo
+        const {redirectTo}=this.props.regUserInfo
         if(redirectTo){
           return   <Redirect to={redirectTo}/>
-        }
-        const errorToast=(message)=>{
-            Toast.info(message+'!!!', 1);
-        }
-        if(message){
-            errorToast(message)
         }
         return (
             <div className='border'>
@@ -58,7 +53,7 @@ class Register extends Component {
                         <Icon key="0" type="search" style={{ marginRight: '16px' }} />,
                         <Icon key="1" type="ellipsis" />,
                     ]}
-                >智能CRM</NavBar>
+                >Boss直聘</NavBar>
                 <Logo></Logo>
                 <WingBlank>
                     <WhiteSpace />
@@ -78,7 +73,6 @@ class Register extends Component {
                     <WhiteSpace />
                     <Button onClick={this.toLogin}>已有账户</Button>
                 </WingBlank>
-
             </div>
         )
     }
@@ -89,7 +83,8 @@ class Register extends Component {
 // 包装生成一个容器组件 
 
 export default connect(state =>({
-    loginUserInfo:state.loginUserInfo
+    // loginUserInfo:state.loginUserInfo
+    regUserInfo:state.regUserInfo
 }),
 
 {register} //action

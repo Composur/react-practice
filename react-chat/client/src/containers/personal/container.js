@@ -4,5 +4,5 @@ import Personal from './personal';
 import {userUpdate} from '../../redux/actions'
 
 export default connect(state=>(
-    {updateUserInfo:state.updateUserInfo}
+    {updateUserInfo:state.loginUserInfo}
 ),{userUpdate})(Personal)

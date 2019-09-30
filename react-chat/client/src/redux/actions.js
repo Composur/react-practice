@@ -4,7 +4,7 @@
  * 异步actions
  */
 import {reqRegister,reqLogin,reqUpdateUser,reqUserInfo,reqUserList,reqMsgList,updateReadMsg} from '../api'
-import{AUTH_SUCCESS,ERROR_MSG,RECEIVE_MSG,RECEIVE_ERR,GET_USER_LIST,GET_MSG_LIST,GET_MSG,UPDATE_READ_MSG} from './action-types'
+import{REG_FAIL,REG_SUCCESS,AUTH_SUCCESS,ERROR_MSG,RECEIVE_MSG,RECEIVE_ERR,GET_USER_LIST,GET_MSG_LIST,GET_MSG,UPDATE_READ_MSG} from './action-types'
 import {initIO} from '../socketIo/connectIO'
 
 let socket=null
@@ -14,6 +14,9 @@ let socket=null
  * 同步的action分发
 */
 
+// 注册成功
+const reg_success=(data)=>({type:REG_SUCCESS,data:data})
+const reg_fail=(data)=>({type:REG_FAIL,data:data})
 // 验证成功
 const auth_success=(data)=>({type:AUTH_SUCCESS,data:data})
         
@@ -64,11 +67,12 @@ export const register = (data) => {
         const result=res.data
         //  拿到数据后无论成功或失败要去分发同步的action
         if (result.success) {
-           dispatch(auth_success(result))
-           const {_id}=result.payload
-           getUserMsgsList(dispatch,_id)
+        //    dispatch(auth_success(result))
+           dispatch(reg_success(result))
+        //    const {_id}=result.payload
+        //    getUserMsgsList(dispatch,_id)
         }else{
-           dispatch(auth_false(result))
+           dispatch(reg_fail(result))
         }   
     }
 }

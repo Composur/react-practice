@@ -57,7 +57,7 @@ router.post('/register',function(req,res){
       }else{
         responseData.success=true
         responseData.message='注册成功'
-        // responseData.payload=result
+        responseData.payload=result
         res.cookie('user_id',result._id,{ maxAge:1000*60*60*24}) //一天后过期
         res.json(responseData)
         return
