@@ -57,5 +57,5 @@
     "less-loader": "^5.0.0",
     "style-loader": "^0.23.1"
   },
-  "proxy": "http://localhost:8081"
+  "proxy": "http://localhost:8082"
 }
